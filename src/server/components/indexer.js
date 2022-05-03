@@ -70,6 +70,7 @@ export const getUserTransactionsAll = async ({limit = 25, offset = 0}) => {
             t.type,
             t.payload->>'type' as payload_type,
             t.payload->>'function' as payload_func,
+            t.payload->>'arguments' as payload_args,
             t.hash,
             t.gas_used,
             t.success,
@@ -91,7 +92,7 @@ export const getUserTransactionsAll = async ({limit = 25, offset = 0}) => {
     return (await query(sql, [limit, offset])).rows
 }
 
-export const cacheLatestUserTransactions = async (limit = 25) => {
+export const cacheLatestUserTransactions = async (limit = 50) => {
     cache.lastestUserTransactions = await getUserTransactionsAll({limit})
     setTimeout(cacheLatestUserTransactions, 5000, limit)
 }
@@ -103,6 +104,7 @@ export const getUserTransactions = async (sender, {limit = 25, offset = 0}) => {
             t.type,
             t.payload->>'type' as payload_type,
             t.payload->>'function' as payload_func,
+            t.payload->>'arguments' as payload_args,
             t.hash,
             t.gas_used,
             t.success,

@@ -13,7 +13,7 @@ export const updateGasUsage = data => {
 
     for(let r of data.gas) {
         $("<tr>").html(`
-            <td>${r.func}</td>
+            <td>${r.func.substr(5)}</td>
             <td class="text-right">${r.gas_avg}</td>
             <td class="text-right">${r.gas_max}</td>
             <td class="text-right">${r.gas_min}</td>
@@ -26,7 +26,7 @@ export const updateOperationsCount = data => {
 
     for(let r of data.operations) {
         $("<tr>").html(`
-            <td>${r.func}</td>
+            <td>${r.func.substr(5)}</td>
             <td class="text-right">${r.operations_count}</td>
         `).appendTo(container)
     }
@@ -42,7 +42,15 @@ export const updateLatestUserTransactions = data => {
     const container = $("#latest-user-transactions").clear()
 
     for (let t of data.transactions) {
-        const {version, type, payload_type, payload_func, hash, gas_used, success, vm_status, inserted_at, sender, sequence_number, gas_unit_price, expiration, timestamp, inserted_ut} = t
+        const {version, type, payload_type, payload_func, payload_args, hash, gas_used, success, vm_status, inserted_at, sender, sequence_number, gas_unit_price, expiration, timestamp, inserted_ut} = t
+        const funcName = payload_func.split("::")[2]
+        const args = JSON.parse( payload_args )
+        let amount = 0
+
+        if (['mint', 'transfer'].includes(funcName)) {
+            amount = +args[1]
+        }
+
         $("<tr>").html(`
             <td xmlns="http://www.w3.org/1999/html"><span class='${success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red'}'></span></td>
             <td class="text-center">${n2f(version)}</td>
@@ -54,8 +62,9 @@ export const updateLatestUserTransactions = data => {
                 ${shorten(sender, 12)}
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${sender}" title="Click to copy hash to clipboard"></span>
             </td>
-            <td>${payload_func}</td>
-            <td>${n2f(gas_used * gas_unit_price)}</td>
+            <td>${payload_func.substr(5)}</td>
+            <td class="text-right">${n2f(amount)}</td>
+            <td class="text-right">${n2f(gas_used * gas_unit_price)}</td>
             <td>${datetime(inserted_at).format(dateFormat.log_am)} UTC</td>
         `).appendTo(container)
     }
