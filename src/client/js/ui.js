@@ -65,7 +65,9 @@ export const updateLatestUserTransactions = data => {
             <td>${payload_func.substr(5)}</td>
             <td class="text-right">${n2f(amount)}</td>
             <td class="text-right">${n2f(gas_used * gas_unit_price)}</td>
-            <td>${datetime(inserted_at).format(dateFormat.log_am)} UTC</td>
+            <td>
+                <div>${datetime(inserted_at).format(dateFormat.log_am)}</div>
+            </td>
         `).appendTo(container)
     }
 

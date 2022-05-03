@@ -75,13 +75,13 @@ export const getUserTransactionsAll = async ({limit = 25, offset = 0}) => {
             t.gas_used,
             t.success,
             t.vm_status,
-            t.inserted_at,
+            t.inserted_at at time zone 'utc' as inserted_at,
             ut.sender,
             ut.sequence_number,
             ut.gas_unit_price,
             ut.expiration_timestamp_secs as expiration,
-            ut.timestamp,
-            ut.inserted_at as inserted_ut
+            ut.timestamp at time zone 'utc' as timestamp,
+            ut.inserted_at at time zone 'utc' as inserted_ut
         from transactions t
         left join user_transactions ut on t.hash = ut.hash
         where type = 'user_transaction'
@@ -109,13 +109,13 @@ export const getUserTransactions = async (sender, {limit = 25, offset = 0}) => {
             t.gas_used,
             t.success,
             t.vm_status,
-            t.inserted_at,
+            t.inserted_at at time zone 'utc' as inserted_at,
             ut.sender,
             ut.sequence_number,
             ut.gas_unit_price,
             ut.expiration_timestamp_secs as expiration,
-            ut.timestamp,
-            ut.inserted_at as inserted_ut
+            ut.timestamp at time zone 'utc' as timestamp,
+            ut.inserted_at at time zone 'utc' as inserted_ut
         from transactions t
         left join user_transactions ut on t.hash = ut.hash
         where type = 'user_transaction' and sender = $1
