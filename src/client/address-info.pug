@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+
+        link(rel="stylesheet", href="/vendor/metro4/css/metro-all.css")
+        link(rel="stylesheet", href="/css/index.css")
+
+        title #{appName}
+    body.m4-cloak
+        section.bg-white.container-fluid.pos-fixed(style="top: 0; left: 0; right: 0; z-index: 1000")
+            header.container.bg-white.border-bottom.bd-system.pos-relative(data-role="app-bar" data-expand-point="fs")
+                a.brand.no-hover.d-flex.flex-align-center(href="/")
+                    div.aptos-logo
+                        img(src="/images/aptos_word.svg", style="margin-top: 2px;")
+                    div.ml-2.reduce-1 |
+                    div.ml-2.enlarge-2
+                        span EXPLORER
+                        span.ml-1.text-small.text-muted v#{appVersion}
+
+
+                div.app-bar-item.ml-auto
+                    span#current-time
+
+        section.container-fluid
+            div.container
+                div.text-leader.text-center#app-title
+                    div Welcome to Aptos Live Explorer
+                    div.text-small Copyright 2022 by
+                        a.ml-1.no-decor.fg-cyan(href="https://pimenov.com.ua") Serhii Pimenov.
+                        span.ml-1 From Ukraine for Aptos Community.
+
+        section.container-fluid
+            div.container
+                h1 Address Info
+
+        include footer
+
+        include scripts
+
+        script(type="module", src="/js/address-info.js")

@@ -49,6 +49,24 @@ const route = () => {
             dateFormat,
         })
     })
+
+    app.get('/transaction/:hash', async (req, res) => {
+        res.render('transaction-info', {
+            title: appName,
+            appVersion,
+            clientConfig,
+            dateFormat,
+        })
+    })
+
+    app.get('/address/:hash', async (req, res) => {
+        res.render('address-info', {
+            title: appName,
+            appVersion,
+            clientConfig,
+            dateFormat,
+        })
+    })
 }
 
 export const runWebServer = () => {
