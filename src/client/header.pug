@@ -1,0 +1,25 @@
+section.app-header.container-fluid.pos-fixed(style="top: 0; left: 0; right: 0; z-index: 1000")
+    header.container.border-bottom.bd-system.pos-relative(data-role="app-bar" data-expand-point="fs")
+        a.brand.no-hover.d-flex.flex-align-center(href="/")
+            div.aptos-logo
+                img(src="images/aptos_word.svg", style="margin-top: 2px;")
+            div.ml-2.reduce-1 |
+            div.ml-2.enlarge-2
+                span EXPLORER
+                span.ml-1.text-small.text-muted v#{appVersion}
+
+
+        div.app-bar-item.ml-auto.no-hover
+            span#current-time
+            span.ml-2.mt-2
+                span.light-mode-switch.mif-sun
+                span.dark-mode-switch.mif-moon
+
+
+section.container-fluid
+    div.container
+        div.text-leader.text-center#app-title
+            div Welcome to Aptos Live Explorer
+            div.text-small Copyright 2022 by
+                a.ml-1.no-decor.fg-cyan(href="https://pimenov.com.ua") Serhii Pimenov.
+                span.ml-1 From Ukraine for Aptos Community.

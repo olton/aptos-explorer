@@ -112,3 +112,27 @@ header {
     border-radius: 10px!important;
     overflow: hidden;
 }
+
+.light-mode-switch, .dark-mode-switch {
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.light-mode-switch {
+    display: none;
+}
+
+.dark-mode-switch {
+    display: inline-block;
+}
+
+.app-header {
+    background: var(--body-background);
+    .app-bar {
+        background: inherit;
+        color: var(--text-color);
+    }
+}
+
+@import "dark";

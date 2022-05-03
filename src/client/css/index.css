@@ -92,4 +92,119 @@ header nav {
   border-radius: 10px!important;
   overflow: hidden;
 }
+.light-mode-switch,
+.dark-mode-switch {
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+.light-mode-switch {
+  display: none;
+}
+.dark-mode-switch {
+  display: inline-block;
+}
+.app-header {
+  background: var(--body-background);
+}
+.app-header .app-bar {
+  background: inherit;
+  color: var(--text-color);
+}
+html.dark-mode {
+  --body-background: #1e2228;
+  --color-text: #adbaa9;
+  --color-text-inverse: #24292e;
+  --color-border: #444c56;
+  --color-panel: #22272e;
+  --color-panel-second: #1b2125;
+  --color-panel-title: #ff8330;
+  --color-accent: #fff;
+  --color-neutral: #b6b6b6;
+  --color-success: #7dc37b;
+  --color-warning: #ff8330;
+  --color-alert: #ea0b0b;
+  --color-info: rgba(27, 161, 226, 0.56);
+  --color-info2: #4db5ff;
+  --color-yellow: #ffdb10;
+  --color-white: #fff;
+  --color-gray: #b6b6b6;
+  --color-active: #4db5ff;
+  --color-stop: #24292e;
+  --color-inactive: #4b4b4b;
+}
+html.dark-mode body,
+html.dark-mode .panel,
+html.dark-mode .input,
+html.dark-mode .icon-box {
+  background: var(--body-background);
+  color: var(--color-text);
+}
+html.dark-mode input,
+html.dark-mode select {
+  background: transparent!important;
+  color: var(--color-text) !important;
+}
+html.dark-mode .bd-system,
+html.dark-mode .bd-default,
+html.dark-mode .panel,
+html.dark-mode .panel-title,
+html.dark-mode td,
+html.dark-mode .input,
+html.dark-mode .select {
+  border-color: var(--color-border) !important;
+}
+html.dark-mode .panel-title,
+html.dark-mode .value {
+  color: var(--color-accent) !important;
+}
+html.dark-mode input:-webkit-autofill,
+html.dark-mode input:-webkit-autofill:hover,
+html.dark-mode input:-webkit-autofill:focus,
+html.dark-mode input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--body-background) inset !important;
+}
+html.dark-mode input:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-text) !important;
+}
+html.dark-mode .light-mode-switch {
+  display: inline-block;
+}
+html.dark-mode .dark-mode-switch {
+  display: none;
+}
+html.dark-mode .table th {
+  color: var(--color-accent) !important;
+}
+html.dark-mode .table td {
+  color: var(--color-text) !important;
+}
+html.dark-mode .table.striped tbody tr:nth-child(even),
+html.dark-mode .table.striped .tbody .tr:nth-child(even) {
+  background: var(--color-panel);
+}
+html.dark-mode .table thead {
+  border-bottom-color: var(--color-border) !important;
+}
+html.dark-mode .table.row-border tr + tr,
+html.dark-mode .table.row-border .tr + .tr {
+  border-top: 1px var(--color-border) solid;
+}
+html.dark-mode .app-header {
+  background: var(--body-background);
+}
+html.dark-mode .app-header .app-bar {
+  background: inherit;
+  color: var(--color-accent);
+}
+html.dark-mode #app-title,
+html.dark-mode .box-value {
+  color: var(--color-accent) !important;
+}
+html.dark-mode .link {
+  color: var(--color-text);
+}
+html.dark-mode .link:hover {
+  color: var(--color-accent);
+}
 /*# sourceMappingURL=index.css.map */
