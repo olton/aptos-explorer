@@ -55,11 +55,11 @@ export const updateLatestUserTransactions = data => {
             <td xmlns="http://www.w3.org/1999/html"><span class='${success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red'}'></span></td>
             <td class="text-center">${n2f(version)}</td>
             <td>
-                ${shorten(hash, 12)}
+                <a class="link" href="/transaction/${hash}">${shorten(hash, 8)}</a>
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${hash}" title="Click to copy hash to clipboard"></span>
             </td>
             <td>
-                ${shorten(sender, 12)}
+                <a class="link" href="/address/${sender}">${shorten(sender, 8)}</a>
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${sender}" title="Click to copy hash to clipboard"></span>
             </td>
             <td>${payload_func.substr(5)}</td>

@@ -81,4 +81,11 @@ header nav {
 .scrollable-container .scrollable-table td {
   white-space: nowrap!important;
 }
+.link {
+  color: #3f3f3f;
+  text-decoration: none;
+}
+.link:hover {
+  color: #000000;
+}
 /*# sourceMappingURL=index.css.map */
