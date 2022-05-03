@@ -4,9 +4,9 @@ export const getGasUsage = async () => {
     const sql = `
         select
             payload->'function' as func,
-            round(avg(gas_used)) as gas_avg,
-            round(max(gas_used)) as gas_max,
-            round(min(gas_used)) as gas_min
+            floor(avg(gas_used)) as gas_avg,
+            max(gas_used) as gas_max,
+            min(gas_used) as gas_min
         from transactions
         where gas_used > 0
         --and success = true
