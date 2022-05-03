@@ -8,7 +8,7 @@ import {createDBConnection} from "./components/postgres.js";
 import {cacheLedger, initAptos} from "./components/aptos.js";
 import {
     cacheGasUsage,
-    cacheLatestUserTransactions,
+    cacheLatestTransactions,
     cacheOperationsCount,
     cacheTransactionsByType
 } from "./components/indexer.js";
@@ -30,7 +30,7 @@ const runProcesses = () => {
     setImmediate( cacheGasUsage )
     setImmediate( cacheOperationsCount )
     setImmediate( cacheTransactionsByType )
-    setImmediate( cacheLatestUserTransactions )
+    setImmediate( cacheLatestTransactions )
 }
 
 export const run = (configPath) => {

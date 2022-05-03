@@ -38,12 +38,12 @@ export const updateTransactionsByType = data => {
     }
 }
 
-export const updateLatestUserTransactions = data => {
-    const container = $("#latest-user-transactions").clear()
+export const updateLatestTransactions = data => {
+    const container = $("#latest-transactions").clear()
 
     for (let t of data.transactions) {
-        const {version, type, payload_type, payload_func, payload_args, hash, gas_used, success, vm_status, inserted_at, sender, sequence_number, gas_unit_price, expiration, timestamp, inserted_ut} = t
-        const funcName = payload_func.split("::")[2]
+        const {version, type, payload_type, payload_func, payload_args, hash, gas_used, success, vm_status, sender, sequence_number, gas_unit_price, timestamp} = t
+        const funcName = payload_func ? payload_func.split("::")[2] : ""
         const args = JSON.parse( payload_args )
         let amount = 0
 
@@ -52,7 +52,8 @@ export const updateLatestUserTransactions = data => {
         }
 
         $("<tr>").html(`
-            <td xmlns="http://www.w3.org/1999/html"><span class='${success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red'}'></span></td>
+            <td><span class='${success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red'}'></span></td>
+            <td><span class='${type === 'user_transaction' ? 'mif-user fg-green' : 'mif-server fg-cyan'}'></span></td>
             <td class="text-center">${n2f(version)}</td>
             <td>
                 <a class="link" href="/transaction/${hash}">${shorten(hash, 8)}</a>
@@ -62,14 +63,17 @@ export const updateLatestUserTransactions = data => {
                 <a class="link" href="/address/${sender}">${shorten(sender, 8)}</a>
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${sender}" title="Click to copy hash to clipboard"></span>
             </td>
-            <td>${payload_func.substr(5)}</td>
-            <td class="text-right">${n2f(amount)}</td>
-            <td class="text-right">${n2f(gas_used * gas_unit_price)}</td>
+            <td>${payload_func ? payload_func.substr(5) : 'METADATA'}</td>
+            <td class="text-right">${n2f(amount || 0)}</td>
+            <td class="text-right">${n2f((gas_used || 0) * (gas_unit_price || 0))}</td>
             <td>
-                <div>${datetime(inserted_at).format(dateFormat.log_am)}</div>
+                <div>${datetime(timestamp).format(dateFormat.log_am)}</div>
             </td>
         `).appendTo(container)
+        if (!success) {
+            $("<tr>").append($("<td>").attr("colspan", 9).addClass("text-left fg-red").html(`${vm_status}`)).appendTo(container)
+        }
     }
 
-    $("#latest-user-transactions-counter").text(n2f(data.transactions.length))
+    $("#latest-transactions-counter").text(n2f(data.transactions.length))
 }

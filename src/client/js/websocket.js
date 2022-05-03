@@ -1,6 +1,6 @@
 import {
     updateGasUsage,
-    updateLatestUserTransactions,
+    updateLatestTransactions,
     updateLedger,
     updateOperationsCount,
     updateTransactionsByType
@@ -85,8 +85,8 @@ const wsMessageController = (ws, response) => {
             break
         }
 
-        case 'latest-user-transactions.pug': {
-            updateLatestUserTransactions(data)
+        case 'latest-transactions': {
+            updateLatestTransactions(data)
             setTimeout(requestLatestUserTransactions, 1000)
             break
         }
@@ -106,5 +106,5 @@ export const requestLedger = () => request("ledger")
 export const requestGasUsage = () => request("gas-usage")
 export const requestOperationsCount = () => request("operations-count")
 export const requestTransactionsByType = () => request("transactions-by-type")
-export const requestLatestUserTransactions = () => request("latest-user-transactions.pug")
+export const requestLatestUserTransactions = () => request("latest-transactions")
 

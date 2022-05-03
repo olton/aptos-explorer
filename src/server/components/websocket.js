@@ -32,8 +32,8 @@ export const websocket = (server) => {
                     response(ws, channel, {transactions: cache.transactionsByType})
                     break
                 }
-                case "latest-user-transactions.pug": {
-                    response(ws, channel, {transactions: cache.lastestUserTransactions})
+                case "latest-transactions": {
+                    response(ws, channel, {transactions: cache.lastestTransactions})
                     break
                 }
             }
