@@ -1,0 +1,40 @@
+{
+    "name": "aptos-explorer",
+    "version": "0.1.0",
+    "description": "",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/olton/aptos-explorer.git"
+    },
+    "keywords": [],
+    "author": "Serhii Pimenov <serhii@pimenov.com.ua>",
+    "bugs": {
+        "url": "https://github.com/olton/aptos-explorer/issues"
+    },
+    "homepage": "https://github.com/olton/aptos-explorer#readme",
+    "main": "src/server/index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node .",
+        "dev": "nodemon ."
+    },
+    "license": "MIT",
+    "browserslist": [
+        "last 1 Chrome versions",
+        "last 1 Firefox versions",
+        "last 1 Opera versions",
+        "last 1 Edge versions"
+    ],
+    "dependencies": {
+        "@olton/aptos": "^0.1.39",
+        "@olton/datetime": "^2.0.8",
+        "assert": "^2.0.0",
+        "express": "^4.18.0",
+        "express-session": "^1.17.2",
+        "node-fetch": "^3.2.3",
+        "pg": "^8.7.3",
+        "pug": "^3.0.2",
+        "serve-favicon": "^2.5.0",
+        "ws": "^8.5.0"
+    }
+}

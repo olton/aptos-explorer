@@ -1,0 +1,16 @@
+section.container-fluid
+    div.container
+        div(data-role="panel" data-title-caption="LATEST USER TRANSACTIONS (<span id='latest-user-transactions-counter'>0</span>)" data-cls-title-caption="text-left")
+            div.scrollable-container
+                table.table.striped.row-border.subcompact.scrollable-table
+                    thead
+                        tr
+                            th(style="width: 20px") St
+                            th.text-center Version
+                            th Hash
+                            th Sender
+                            th Function
+                            th Gas
+                            th Date
+
+                    tbody#latest-user-transactions
