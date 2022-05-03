@@ -14,9 +14,9 @@ export const updateGasUsage = data => {
     for(let r of data.gas) {
         $("<tr>").html(`
             <td>${r.func.substr(5)}</td>
-            <td class="text-right">${r.gas_avg}</td>
-            <td class="text-right">${r.gas_max}</td>
             <td class="text-right">${r.gas_min}</td>
+            <td class="text-right">${r.gas_avg}</td>
+            <td class="text-right">${r.gas_max}</td>            
         `).appendTo(container)
     }
 }
