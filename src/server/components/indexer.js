@@ -83,7 +83,7 @@ export const getTransactions = async ({limit = 25, offset = 0}) => {
             left join user_transactions ut on t.hash = ut.hash
             left join block_metadata_transactions m on t.hash = m.hash
         where version > 0
-        order by coalesce(ut.timestamp, m.timestamp) desc
+        order by t.version desc
         limit $1 offset $2    
     `
 
