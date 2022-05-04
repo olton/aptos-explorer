@@ -101,7 +101,7 @@ export const updateTransaction = transaction => {
         $("#tr_event_hash").text(tran.event_root_hash)
         $("#tr_accumulator_hash").text(tran.accumulator_root_hash)
         $("#tr_gas_used").text(n2f(tran.gas_used))
-        $("#tr_vm_status").text(tran.vm_status)
+        $("#tr_vm_status").addClass(`${tran.success ? '' : 'fg-red'}`).text(tran.vm_status)
 
         if (!tran.payload) {
             $("#payload-wrapper").hide()
