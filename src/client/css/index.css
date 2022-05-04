@@ -81,6 +81,9 @@ header nav {
 .scrollable-container .scrollable-table td:not(.vm-status) {
   white-space: nowrap!important;
 }
+.vm-status {
+  color: var(--alert-color) !important;
+}
 .link {
   color: #3f3f3f;
   text-decoration: none;
@@ -212,5 +215,8 @@ html.dark-mode .link:hover {
 }
 html.dark-mode hr {
   background-color: var(--color-border) !important;
+}
+html.dark-mode .vm-status {
+  color: var(--color-alert) !important;
 }
 /*# sourceMappingURL=index.css.map */
