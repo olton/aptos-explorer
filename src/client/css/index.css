@@ -117,6 +117,66 @@ header nav {
 .value {
   color: var(--color-accent);
 }
+.long-value {
+  overflow-wrap: break-word;
+}
+.panel-title-switch {
+  height: 20px;
+  width: 48px;
+}
+.info-table {
+  display: block;
+}
+.info-table tbody {
+  display: block;
+}
+.info-table tr {
+  display: block;
+  max-width: 100%;
+}
+.info-table td {
+  display: block;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+.info-table td:nth-child(1) {
+  padding-bottom: 0;
+}
+.info-table td:nth-child(2) {
+  padding-top: 0;
+}
+.info-table td:nth-child(1) {
+  width: 235px;
+  font-weight: 600;
+}
+.votes-list {
+  counter-reset: item;
+  list-style-type: none;
+  margin: 0;
+}
+.votes-list li {
+  display: block;
+}
+.votes-list li:before {
+  content: counter(item, decimal-leading-zero) ".";
+  counter-increment: item;
+  font-size: 10px;
+}
+@media screen and (min-width: 800px) {
+  .info-table {
+    display: table;
+  }
+  .info-table tbody {
+    display: table-header-group;
+  }
+  .info-table tr {
+    display: table-row;
+  }
+  .info-table td {
+    display: table-cell;
+    padding: 0.652rem !important;
+  }
+}
 html.dark-mode {
   --body-background: #1e2228;
   --color-text: #adbaa9;
@@ -218,5 +278,10 @@ html.dark-mode hr {
 }
 html.dark-mode .vm-status {
   color: var(--color-alert) !important;
+}
+html.dark-mode .switch input[type="checkbox"]:checked ~ .check {
+  background: var(--color-panel);
+  border-color: var(--color-border);
+  color: var(--color-panel);
 }
 /*# sourceMappingURL=index.css.map */

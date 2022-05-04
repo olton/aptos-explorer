@@ -77,3 +77,69 @@ export const updateLatestTransactions = data => {
 
     $("#latest-transactions-counter").text(n2f(data.transactions.length))
 }
+
+export const updateTransaction = transaction => {
+    console.log(transaction)
+
+    const tranType = {
+        'user_transaction': 'UserTransaction',
+        'block_metadata_transaction': 'BlockMetadata',
+    }
+
+    const tran = transaction.tran
+    const user = transaction.user
+    const meta = transaction.meta
+
+    if (tran) {
+        $("#tr_status").removeClassBy("mif-").addClass(tran.success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red')
+        $("#tr_number").text(tran.version)
+        $("#tr_version").text(tran.version)
+        $("#tr_timestamp").text(datetime(user ? user.timestamp : meta.timestamp).format(dateFormat.full))
+        $("#tr_type").text(tranType[tran.type])
+        $("#tr_hash").text(tran.hash)
+        $("#tr_state_hash").text(tran.state_root_hash)
+        $("#tr_event_hash").text(tran.event_root_hash)
+        $("#tr_accumulator_hash").text(tran.accumulator_root_hash)
+        $("#tr_gas_used").text(n2f(tran.gas_used))
+        $("#tr_vm_status").text(tran.vm_status)
+
+        if (!tran.payload) {
+            $("#payload-wrapper").hide()
+        } else {
+            $("#payload_type").text(tran.payload.type)
+            $("#payload_function").text(tran.payload.function)
+            $("#payload_arguments").html(`
+                <ol class="decimal votes-list">
+                    <li>${tran.payload.arguments.join("</li><li>")}</li>
+                </ol>
+            `)
+        }
+
+        if (!user) {
+            $("#userdata-wrapper").hide()
+        } else {
+            $("#user_sequence_number").text(user.sequence_number)
+            $("#user_sender").text(user.sender)
+            $("#user_max_gas_amount").text(user.max_gas_amount)
+            $("#user_gas_unit_price").text(user.gas_unit_price)
+            $("#user_gas_trans_price").text(user.gas_unit_price * tran.gas_used)
+            $("#user_signature_public_key").text(user.signature.public_key)
+            $("#user_signature_value").text(shorten(user.signature.signature, 32))
+            $("#user_signature_type").text(user.signature.type)
+        }
+
+        if (!meta) {
+            $("#metadata-wrapper").hide()
+        } else {
+            $("#meta_id").text(meta.id)
+            $("#meta_round").text(meta.round)
+            $("#meta_proposer").text(meta.proposer)
+            $("#meta_timestamp").text(datetime(meta.timestamp).format(dateFormat.full))
+            $("#meta_votes").html(`
+                <ol class="decimal votes-list">
+                    <li>${meta.previous_block_votes.join("</li><li>")}</li>
+                </ol>
+            `)
+        }
+    }
+}

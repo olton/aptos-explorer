@@ -44,55 +44,6 @@ export const connect = () => {
     }
 }
 
-const wsMessageController = (ws, response) => {
-    const {channel, data} = response
-
-    if (!channel) {
-        return
-    }
-
-    switch(channel) {
-        case 'welcome': {
-            requestLedger()
-            requestGasUsage()
-            requestOperationsCount()
-            requestTransactionsByType()
-            requestLatestUserTransactions()
-            break
-        }
-
-        case 'ledger': {
-            updateLedger(data)
-            setTimeout(requestLedger, 1000)
-            break
-        }
-
-        case 'gas-usage': {
-            updateGasUsage(data)
-            setTimeout(requestGasUsage, 1000)
-            break
-        }
-
-        case 'operations-count': {
-            updateOperationsCount(data)
-            setTimeout(requestOperationsCount, 1000)
-            break
-        }
-
-        case 'transactions-by-type': {
-            updateTransactionsByType(data)
-            setTimeout(requestTransactionsByType, 1000)
-            break
-        }
-
-        case 'latest-transactions': {
-            updateLatestTransactions(data)
-            setTimeout(requestLatestUserTransactions, 1000)
-            break
-        }
-    }
-}
-
 export const request = (channel, data) => {
     if (isOpen(webSocket)) {
         webSocket.send(JSON.stringify({
@@ -101,10 +52,4 @@ export const request = (channel, data) => {
         }))
     }
 }
-
-export const requestLedger = () => request("ledger")
-export const requestGasUsage = () => request("gas-usage")
-export const requestOperationsCount = () => request("operations-count")
-export const requestTransactionsByType = () => request("transactions-by-type")
-export const requestLatestUserTransactions = () => request("latest-transactions")
 

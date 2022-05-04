@@ -1,6 +1,7 @@
 section.container-fluid
     div.container
-        div.radius(data-role="panel" data-title-caption="LATEST TRANSACTIONS (<span id='latest-transactions-counter'>0</span>)" data-cls-title-caption="text-left")
+        div
+        div.radius(data-role="panel" data-title-caption="LATEST TRANSACTIONS (<span id='latest-transactions-counter'>0</span>) <div class='ml-auto d-flex flex-row flex-align-center'><span class='reduce-1 mr-1'>RELOAD</span><input id='reload_last_transactions' type='checkbox' checked data-role='switch' data-show-on-off='true' data-on='yes' data-off='no' class='panel-title-switch'></div>" data-cls-title-caption="d-flex flex-row flex-nowrap")
             div.scrollable-container
                 table.table.striped.row-border.subcompact.scrollable-table
                     thead
@@ -17,3 +18,4 @@ section.container-fluid
                             th(style="width: 100px") Date
 
                     tbody#latest-transactions
+

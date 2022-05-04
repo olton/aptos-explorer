@@ -17,19 +17,136 @@ html(lang="en")
 
         section.container-fluid
             div.container
-                h1 Transaction Info
-                hr.thin
-                div.row.h3
-                    div.cell-md-6
-                        div
-                            span Version:
-                            span.value.ml-2#tr_version
-                    div.cell-md-6
-                        div.text-left-fs.text-right-md
-                            span Time:
-                            span.value.ml-2#tr_timestamp
+                h1.d-flex.flex-row
+                   span.text-muted Transaction:
+                   span.ml-2.value#tr_number
+                   span.ml-auto#tr_status
 
-                div
+                hr.thin
+
+                h4.text-light.border-bottom.bd-system.pb-2 General
+                table.table.striped.info-table
+                    tbody
+                        tr
+                            td TYPE
+                            td
+                                div.value#tr_type
+                        tr
+                            td TIMESTAMP
+                            td
+                                div.value.long-value#tr_timestamp
+                        tr
+                            td HASH
+                            td
+                                div.value.long-value#tr_hash
+                        tr
+                            td STATE HASH
+                            td
+                                div.value.long-value#tr_state_hash
+                        tr
+                            td EVENT HASH
+                            td
+                                div.value.long-value#tr_event_hash
+                        tr
+                            td ACCUMULATOR HASH
+                            td
+                                div.value.long-value#tr_accumulator_hash
+                        tr
+                            td GAS USED
+                            td
+                                div.value#tr_gas_used
+                        tr
+                            td VM STATUS
+                            td
+                                div.value#tr_vm_status
+
+                div#payload-wrapper.mt-10
+                    h4.text-light.border-bottom.bd-system.pb-2
+                        span.mif-download.mr-3.va-middle.text-muted
+                        span Payload
+                    table.table.striped.info-table
+                        tbody
+                            tr
+                                td TYPE
+                                td
+                                    div.value#payload_type
+                            tr
+                                td FUNCTION
+                                td
+                                    div.value#payload_function
+                            tr
+                                td ARGUMENTS
+                                td
+                                    div.value#payload_arguments
+
+
+                div#metadata-wrapper.mt-10
+                    h4.text-light.border-bottom.bd-system.pb-2
+                        span.mif-server.mr-3.va-middle.text-muted
+                        span Metadata
+                    table.table.striped.info-table
+                        tbody
+                            tr
+                                td ROUND
+                                td
+                                    div.value#meta_round
+                            tr
+                                td ID
+                                td
+                                    div.value#meta_id
+                            tr
+                                td TIMESTAMP
+                                td
+                                    div.value#meta_timestamp
+                            tr
+                                td PROPOSER
+                                td
+                                    div.value#meta_proposer
+                            tr
+                                td BLOCK VOTES
+                                td
+                                    div.value#meta_votes
+
+                div#userdata-wrapper.mt-10
+                    h4.text-light.border-bottom.bd-system.pb-2
+                        span.mif-user.mr-3.va-middle.text-muted
+                        span Userdata
+                    table.table.striped.info-table
+                        tbody
+                            tr
+                                td SEQUENCE NUMBER
+                                td
+                                    div.value#user_sequence_number
+                            tr
+                                td SENDER
+                                td
+                                    div.value.long-value#user_sender
+                            tr
+                                td MAX GAS AMOUNT
+                                td
+                                    div.value#user_max_gas_amount
+                            tr
+                                td GAS UNIT PRICE
+                                td
+                                    div.value#user_gas_unit_price
+                            tr
+                                td GAS TRANS PRICE
+                                td
+                                    div.value#user_gas_trans_price
+                            tr
+                                td SIGNATURE PUBLIC KEY
+                                td
+                                    div.value.long-value#user_signature_public_key
+                            tr
+                                td SIGNATURE VALUE
+                                td
+                                    div.value.long-value#user_signature_value
+                            tr
+                                td SIGNATURE TYPE
+                                td
+                                    div.value#user_signature_type
+
+
 
         include footer
 
