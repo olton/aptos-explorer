@@ -7,7 +7,7 @@ import {broadcast} from "./components/websocket.js";
 import {createDBConnection} from "./components/postgres.js";
 import {cacheLedger, initAptos} from "./components/aptos.js";
 import {
-    cacheGasUsage,
+    cacheGasUsage, cacheGaugeTransactionsPerMinute,
     cacheLatestTransactions,
     cacheOperationsCount,
     cacheTransactionsByType
@@ -31,6 +31,7 @@ const runProcesses = () => {
     setImmediate( cacheOperationsCount )
     setImmediate( cacheTransactionsByType )
     setImmediate( cacheLatestTransactions )
+    setImmediate( cacheGaugeTransactionsPerMinute )
 }
 
 export const run = (configPath) => {

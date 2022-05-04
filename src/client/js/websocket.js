@@ -1,11 +1,3 @@
-import {
-    updateGasUsage,
-    updateLatestTransactions,
-    updateLedger,
-    updateOperationsCount,
-    updateTransactionsByType
-} from "./ui.js";
-
 globalThis.webSocket = null
 
 const isOpen = (ws) => ws && ws.readyState === ws.OPEN

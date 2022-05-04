@@ -16,6 +16,54 @@ html(lang="en")
         section.container-fluid.mt-4.mb-4
             div.container
                 div.row
+                    div.cell-lg-4
+                        div
+                            div.text-bold.text-center
+                                span All Trans / Minute
+                                span.ml-2.text-small.text-muted (for last hour)
+
+                            div#gauge-transactions-per-minute-all
+
+                            div.min-max.text-small.text-center
+                                span Min:
+                                span.ml-2.min-value 0
+                                span.ml-2 Max:
+                                span.ml-2.max-value 0
+
+                    div.cell-lg-4
+                        div
+                            div.text-bold.text-center
+                                span User Trans / Minute
+                                span.ml-2.text-small.text-muted (for last hour)
+
+                            div#gauge-transactions-per-minute-user
+
+                            div.min-max.text-small.text-center
+                                span Min:
+                                span.ml-2.min-value 0
+                                span.ml-2 Max:
+                                span.ml-2.max-value 0
+
+
+                    div.cell-lg-4
+                        div
+                            div.text-bold.text-center
+                                span Meta Trans / Minute
+                                span.ml-2.text-small.text-muted (for last hour)
+
+                            div#gauge-transactions-per-minute-meta
+
+                            div.min-max.text-small.text-center
+                                span Min:
+                                span.ml-2.min-value 0
+                                span.ml-2 Max:
+                                span.ml-2.max-value 0
+
+
+
+        section.container-fluid.mt-4.mb-4
+            div.container
+                div.row
                     div.cell-lg-6
                         include gas-usage
                     div.cell-lg-6

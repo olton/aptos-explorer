@@ -135,3 +135,57 @@ export const getUserTransactions = async (sender, {limit = 25, offset = 0}) => {
     return (await query(sql, [sender, limit, offset])).rows
 }
 
+export const gaugeTransactionsPerMinute = async (limit = 60) => {
+    const sql = `
+        with trans as (select
+                    t.version,
+                    coalesce(ut.timestamp, m.timestamp) at time zone 'utc' as timestamp
+                from transactions t
+                    left join user_transactions ut on t.hash = ut.hash
+                    left join block_metadata_transactions m on t.hash = m.hash
+                where version > 0
+                order by t.version desc)
+        select
+            date_trunc('minute', tr.timestamp) as minute,
+            count(tr.version)
+        from trans tr
+        group by 1
+        order by 1 desc
+        limit $1
+    `
+
+    return (await query(sql, [limit])).rows
+}
+
+export const TRANSACTION_TYPE_USER = 'user_transaction'
+export const TRANSACTION_TYPE_META = 'block_metadata_transaction'
+
+export const gaugeTransactionsPerMinuteByType = async (type = TRANSACTION_TYPE_USER, limit = 60) => {
+    const sql = `
+        with trans as (select
+                    t.version,
+                    coalesce(ut.timestamp, m.timestamp) at time zone 'utc' as timestamp
+                from transactions t
+                    left join user_transactions ut on t.hash = ut.hash
+                    left join block_metadata_transactions m on t.hash = m.hash
+                where version > 0
+                and t.type = $1 
+                order by t.version desc)
+        select
+            date_trunc('minute', tr.timestamp) as minute,
+            count(tr.version)
+        from trans tr
+        group by 1
+        order by 1 desc
+        limit $2
+    `
+
+    return (await query(sql, [type, limit])).rows
+}
+
+export const cacheGaugeTransactionsPerMinute = async (limit = 61) => {
+    cache.gaugeTransPerMinuteAll = await gaugeTransactionsPerMinute(limit)
+    cache.gaugeTransPerMinuteUser = await gaugeTransactionsPerMinuteByType(TRANSACTION_TYPE_USER, limit)
+    cache.gaugeTransPerMinuteMeta = await gaugeTransactionsPerMinuteByType(TRANSACTION_TYPE_META, limit)
+    setTimeout(cacheGaugeTransactionsPerMinute, 60000, limit)
+}

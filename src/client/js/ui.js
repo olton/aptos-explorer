@@ -79,8 +79,6 @@ export const updateLatestTransactions = data => {
 }
 
 export const updateTransaction = transaction => {
-    console.log(transaction)
-
     const tranType = {
         'user_transaction': 'UserTransaction',
         'block_metadata_transaction': 'BlockMetadata',

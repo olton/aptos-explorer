@@ -7,6 +7,7 @@ import {
     updateOperationsCount,
     updateTransactionsByType
 } from "./ui.js";
+import {drawGaugeTransactionsPerMinute} from "./gauges.js";
 
 const wsMessageController = (ws, response) => {
     const {channel, data} = response
@@ -22,6 +23,7 @@ const wsMessageController = (ws, response) => {
             requestOperationsCount()
             requestTransactionsByType()
             requestLatestTransactions()
+            requestGaugeTransactionsPerMinute()
             break
         }
 
@@ -54,6 +56,14 @@ const wsMessageController = (ws, response) => {
             setTimeout(requestLatestTransactions, 1000)
             break
         }
+
+        case 'gauge-transactions-per-minute': {
+            drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-all', data.all, '#5a74ec')
+            drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-user', data.user, '#38800b')
+            drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-meta', data.meta, '#d06714')
+            setTimeout(requestGaugeTransactionsPerMinute, 60000)
+            break
+        }
     }
 }
 
@@ -62,6 +72,7 @@ const requestGasUsage = () => request("gas-usage")
 const requestOperationsCount = () => request("operations-count")
 const requestTransactionsByType = () => request("transactions-by-type")
 const requestLatestTransactions = () => request("latest-transactions")
+const requestGaugeTransactionsPerMinute = () => request("gauge-transactions-per-minute")
 
 const autoReloadLastTransactions = true
 
