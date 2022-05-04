@@ -113,6 +113,9 @@ export const drawGaugeTransactionsPerMinute = (target, data, color = '#458fff') 
             x: {
                 line: {
                     color: darkMode ? '#444c56' : '#d9d9d9'
+                },
+                label: {
+                    count: 10
                 }
             }
         },
