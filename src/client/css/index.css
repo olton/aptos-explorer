@@ -78,7 +78,7 @@ header nav {
   width: auto!important;
   min-width: 100%;
 }
-.scrollable-container .scrollable-table td {
+.scrollable-container .scrollable-table td:not(.vm-status) {
   white-space: nowrap!important;
 }
 .link {
@@ -110,6 +110,9 @@ header nav {
 .app-header .app-bar {
   background: inherit;
   color: var(--text-color);
+}
+.value {
+  color: var(--color-accent);
 }
 html.dark-mode {
   --body-background: #1e2228;
@@ -176,7 +179,7 @@ html.dark-mode .dark-mode-switch {
 html.dark-mode .table th {
   color: var(--color-accent) !important;
 }
-html.dark-mode .table td {
+html.dark-mode .table td:not(.vm-status) {
   color: var(--color-text) !important;
 }
 html.dark-mode .table.striped tbody tr:nth-child(even),
@@ -206,5 +209,8 @@ html.dark-mode .link {
 }
 html.dark-mode .link:hover {
   color: var(--color-accent);
+}
+html.dark-mode hr {
+  background-color: var(--color-border) !important;
 }
 /*# sourceMappingURL=index.css.map */

@@ -94,7 +94,7 @@ header {
         width: auto!important;
         min-width: 100%;
 
-        td {
+        td:not(.vm-status) {
             white-space: nowrap!important;
         }
     }
@@ -133,6 +133,10 @@ header {
         background: inherit;
         color: var(--text-color);
     }
+}
+
+.value {
+    color: var(--color-accent);
 }
 
 @import "dark";

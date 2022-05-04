@@ -71,7 +71,7 @@ export const updateLatestTransactions = data => {
             </td>
         `).appendTo(container)
         if (!success) {
-            $("<tr>").append($("<td>").attr("colspan", 9).addClass("text-left fg-red").html(`${vm_status}`)).appendTo(container)
+            $("<tr>").append($("<td>").attr("colspan", 9).addClass("text-left vm-status").html(`${vm_status}`)).appendTo(container)
         }
     }
 

@@ -60,7 +60,7 @@ html.dark-mode {
         th {
             color: var(--color-accent)!important;
         }
-        td {
+        td:not(.vm-status) {
             color: var(--color-text)!important;
         }
 
@@ -99,5 +99,9 @@ html.dark-mode {
         &:hover {
             color: var(--color-accent);
         }
+    }
+
+    hr {
+        background-color: var(--color-border)!important;
     }
 }

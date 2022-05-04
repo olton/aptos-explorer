@@ -95,6 +95,17 @@ export const cacheLatestTransactions = async (limit = 50) => {
     setTimeout(cacheLatestTransactions, 5000, limit)
 }
 
+export const getTransaction = async (hash) => {
+    const tr_data = (await query(`select * from transactions t where t.hash = $1`, [hash])).rows
+    const tr_user = (await query(`select * from user_transactions where hash = $1`, [hash])).rows
+    const tr_meta = (await query(`select * from block_metadata_transactions where hash = $1`, [hash])).rows
+    return {
+        tran: tr_data.length ? tr_data[0] : null,
+        user: tr_user.length ? tr_user[0] : null,
+        meta: tr_meta.length ? tr_meta[0] : null
+    }
+}
+
 export const getUserTransactions = async (sender, {limit = 25, offset = 0}) => {
     const sql = `
         select

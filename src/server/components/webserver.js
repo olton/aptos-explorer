@@ -7,6 +7,7 @@ import session from "express-session"
 import {websocket} from "./websocket.js"
 import {info} from "../helpers/logging.js";
 import favicon from "serve-favicon"
+import {getTransaction} from "./indexer.js";
 
 const app = express()
 
@@ -25,8 +26,16 @@ const route = () => {
 
 
     app.use(express.static(path.join(srcPath, 'client')))
+
+    app.use('/css', express.static(path.join(clientPath, 'css')))
+    app.use('/js', express.static(path.join(clientPath, 'js')))
+    app.use('/vendor', express.static(path.join(clientPath, 'vendor')))
+    app.use('/images', express.static(path.join(clientPath, 'images')))
+
+
     if (fs.existsSync(path.resolve(clientPath, 'favicon.ico')))
         app.use(favicon(path.join(srcPath, 'client', 'favicon.ico')))
+
     app.locals.pretty = true
     app.set('views', path.resolve(srcPath, 'client'))
     app.set('view engine', 'pug')
@@ -56,6 +65,7 @@ const route = () => {
             appVersion,
             clientConfig,
             dateFormat,
+            transaction: JSON.stringify(await getTransaction(req.params.hash))
         })
     })
 
