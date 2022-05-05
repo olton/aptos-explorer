@@ -65,7 +65,7 @@ export const updateLatestTransactions = data => {
                 <a class="link" href="/account/${sender}">${shorten(sender, 8)}</a>
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${sender}" title="Click to copy hash to clipboard"></span>
             </td>
-            <td>${type === 'user_transaction' ? (payload_func || 'USERDATA').substring(0, 30) : 'VOTES'}</td>
+            <td>${type === 'user_transaction' ? (payload_func || 'USERDATA').substring(0, 50) : 'VOTES'}</td>
             <td class="text-right">${n2f(amount || 0)}</td>
             <td class="text-right">${n2f((gas_used || 0) * (gas_unit_price || 0))}</td>
             <td>
@@ -73,7 +73,12 @@ export const updateLatestTransactions = data => {
             </td>
         `).appendTo(container)
         if (!success) {
-            $("<tr>").append($("<td>").attr("colspan", 9).addClass("vm-status").text(`${vm_status}`)).appendTo(container)
+            $("<tr>").append($("<td>").attr("colspan", 9).addClass("vm-status fail").html(`
+                <div class="d-flex flex-row flex-align-start">
+                    <span class="arrow-corner-up"></span>
+                    <span class="d-inline-block ml-2">${vm_status}</span>
+                </div>
+            `)).appendTo(container)
         }
     }
 

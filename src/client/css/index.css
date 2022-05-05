@@ -165,6 +165,13 @@ code {
   color: var(--code-color);
   font-size: 14px;
 }
+.arrow-corner-up {
+  display: inline-block;
+  background: url("/images/corner-arrow.svg") center center;
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+}
 @media screen and (min-width: 800px) {
   .info-table {
     display: table;
@@ -300,5 +307,8 @@ html.dark-mode .default-icon-cross {
 }
 html.dark-mode .dropdown-toggle::before {
   border-color: var(--text-color-accent);
+}
+html.dark-mode .arrow-corner-up {
+  background: url("/images/corner-arrow-light.svg") center center;
 }
 /*# sourceMappingURL=index.css.map */
