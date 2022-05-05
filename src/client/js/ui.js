@@ -283,7 +283,7 @@ export const updateTransaction = transaction => {
 
 export const updateAccount = (data) => {
     console.log(data)
-    const {address, account, resources, modules, transaction, metadata, events} = data
+    const {address, account, resources, modules, transactions, metadata, events} = data
     let validator = false
 
     $("#address").text(address)
@@ -297,6 +297,11 @@ export const updateAccount = (data) => {
 
     $("#user_icon").addClass(validator ? 'mif-user-secret' : 'mif-organization')
     $("#user-type").html(validator ? 'VALIDATOR' : 'SIMPLE USER')
+
+    $("#user-events-count").text(n2f(events.length))
+    $("#user-resources-count").text(n2f(resources.length))
+    $("#user-transactions-count").text(n2f(transactions.length || metadata.length))
+    $("#user-modules-count").text(n2f(modules.length))
 
     if (!resources) {
 
