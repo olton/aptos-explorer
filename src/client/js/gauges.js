@@ -74,9 +74,7 @@ export const drawGaugeTransactionsPerMinute = (target, data, color = '#458fff') 
     const areas = [
         {
             name: "Trans per minute",
-            dots: {
-                size: 2
-            },
+            dots: false,
             size: 2
         }
     ]
