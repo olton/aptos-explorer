@@ -274,9 +274,6 @@ html.dark-mode .link:hover {
 html.dark-mode hr {
   background-color: var(--border-color) !important;
 }
-html.dark-mode .vm-status {
-  color: var(--alert-color) !important;
-}
 html.dark-mode .switch input[type="checkbox"]:checked ~ .check {
   background: var(--panel-color);
   border-color: var(--border-color);
