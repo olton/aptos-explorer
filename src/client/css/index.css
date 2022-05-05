@@ -285,7 +285,7 @@ html.dark-mode .icon-box .content {
   color: var(--text-color);
 }
 html.dark-mode code {
-  color: var(--code-color);
+  color: var(--text-color-accent);
 }
 html.dark-mode .panel .panel-title .icon {
   border-right-color: var(--border-color);

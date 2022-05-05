@@ -161,7 +161,7 @@ export const updateTransaction = transaction => {
             for(let c of events) {
                 $("<tr>").html(`
                     <td>TYPE</td>
-                    <td>${c.type}</td>
+                    <td><div class="value">${c.type}</div></td>
                 `).appendTo(target)
                 $("<tr>").html(`
                     <td>KEY</td>
@@ -192,7 +192,7 @@ export const updateTransaction = transaction => {
             for(let c of changes) {
                 $("<tr>").html(`
                     <td>TYPE</td>
-                    <td>${c.type}</td>
+                    <td><div class="value">${c.type}</divc></td>
                 `).appendTo(target)
                 $("<tr>").html(`
                     <td>ADDRESS</td>
