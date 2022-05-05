@@ -65,7 +65,11 @@ export const updateLatestTransactions = data => {
                 <a class="link" href="/account/${sender}">${shorten(sender, 8)}</a>
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${sender}" title="Click to copy hash to clipboard"></span>
             </td>
-            <td>${type === 'user_transaction' ? (payload_func || 'USERDATA').substring(0, 40) : 'VOTES'}</td>
+            <td>
+                <div style="width: 200px; max-width: 200px;">
+                    <div class="text-ellipsis">${type === 'user_transaction' ? (payload_func || 'USERDATA') : 'VOTES'}</div>
+                </div>
+            </td>
             <td class="text-right">${n2f(amount || 0)}</td>
             <td class="text-right">${n2f((gas_used || 0) * (gas_unit_price || 0))}</td>
             <td>

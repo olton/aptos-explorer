@@ -230,11 +230,17 @@ export const gaugeTransactionsPerMinuteByType = async (type = TRANSACTION_TYPE_U
     return (await query(sql, [type, limit])).rows
 }
 
-export const cacheGaugeTransactionsPerMinute = async (limit = 61) => {
+export const cacheGaugeTransactionsPerMinuteAll = async (limit = 61) => {
     cache.gaugeTransPerMinuteAll = await gaugeTransactionsPerMinute(limit)
+    setTimeout(cacheGaugeTransactionsPerMinuteAll, 60000, limit)
+}
+export const cacheGaugeTransactionsPerMinuteUser = async (limit = 61) => {
     cache.gaugeTransPerMinuteUser = await gaugeTransactionsPerMinuteByType(TRANSACTION_TYPE_USER, limit)
+    setTimeout(cacheGaugeTransactionsPerMinuteUser, 60000, limit)
+}
+export const cacheGaugeTransactionsPerMinuteMeta = async (limit = 61) => {
     cache.gaugeTransPerMinuteMeta = await gaugeTransactionsPerMinuteByType(TRANSACTION_TYPE_META, limit)
-    setTimeout(cacheGaugeTransactionsPerMinute, 60000, limit)
+    setTimeout(cacheGaugeTransactionsPerMinuteMeta, 60000, limit)
 }
 
 export const getReceivedEvents = async (address, {limit = 25, offset = 0} = {}) => {
