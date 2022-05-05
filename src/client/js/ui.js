@@ -314,8 +314,7 @@ export const updateAccount = (data) => {
             )
 
             $("<tr>").html(`
-                <td>TYPE</td>
-                <td><div class="value">${r.type}</divc></td>
+                <td colspan="2"><div class="value">${r.type}</divc></td>
             `).appendTo(table)
             $("<tr>").html(`
                 <td colspan="2">DATA</td>
