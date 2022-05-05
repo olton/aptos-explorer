@@ -1,5 +1,5 @@
 doctype html
-html(lang="en")
+html(lang="en").scrollbar-type-1.sb-darkCyan
     head
         meta(charset="utf-8")
         meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
@@ -27,7 +27,7 @@ html(lang="en")
                     span.ml-2.value#tr_number
                     span.ml-auto#tr_status
 
-                div.mt-10#general-wrapper(data-role="panel" data-title-caption="General" data-title-icon="<span class='mif-info'>" data-cls-title-caption="text-upper text-left")
+                div.mt-5#general-wrapper(data-role="panel" data-title-caption="General" data-title-icon="<span class='mif-info'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table
                         tbody
                             tr
@@ -63,12 +63,12 @@ html(lang="en")
                                 td
                                     div.vm-status#tr_vm_status
 
-                div#payload-wrapper.mt-10(data-role="panel" data-title-caption="Payload" data-title-icon="<span class='mif-attachment'>" data-cls-title-caption="text-upper text-left")
+                div#payload-wrapper.mt-5(data-role="panel" data-collapsible="true" data-collapsed="true" data-title-caption="Payload" data-title-icon="<span class='mif-attachment'>" data-cls-title-caption="text-upper text-left")
                     div
                         div#payload
 
 
-                div#metadata-wrapper.mt-10(data-role="panel" data-title-caption="Metadata" data-title-icon="<span class='mif-server'>" data-cls-title-caption="text-upper text-left")
+                div#metadata-wrapper.mt-5(data-role="panel" data-collapsible="true" data-collapsed="true" data-title-caption="Metadata" data-title-icon="<span class='mif-server'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table
                         tbody
                             tr
@@ -93,7 +93,7 @@ html(lang="en")
                                 td(colspan=2)
                                     div.value.text-light#meta_votes
 
-                div#userdata-wrapper.mt-10(data-role="panel" data-title-caption="Userdata" data-title-icon="<span class='mif-server'>" data-cls-title-caption="text-upper text-left")
+                div#userdata-wrapper.mt-5(data-role="panel" data-collapsible="true" data-collapsed="true" data-title-caption="Userdata" data-title-icon="<span class='mif-server'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table
                         tbody
                             tr
@@ -137,11 +137,10 @@ html(lang="en")
                                 td
                                     div.value#user_signature_type
 
-                div#changes-wrapper.mt-10(data-role="panel" data-title-caption="WRITE SET CHANGES" data-title-icon="<span class='mif-pencil'>" data-cls-title-caption="text-upper text-left")
-                    table.table.striped.info-table
-                        tbody#changes-list
+                div#changes-wrapper.mt-5(data-role="panel" data-collapsible="true" data-collapsed="true" data-title-caption="WRITE SET CHANGES" data-title-icon="<span class='mif-pencil'>" data-cls-title-caption="text-upper text-left")
+                    div#changes-list
 
-                div#events-wrapper.mt-10(data-role="panel" data-title-caption="EVENTS" data-title-icon="<span class='mif-event-available'>" data-cls-title-caption="text-upper text-left")
+                div#events-wrapper.mt-5(data-role="panel" data-collapsible="true" data-collapsed="true" data-title-caption="EVENTS" data-title-icon="<span class='mif-event-available'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table
                         tbody#events-list
 

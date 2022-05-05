@@ -205,10 +205,6 @@ header {
     }
 }
 
-#gauge-transactions-per-minute-all, #gauge-transactions-per-minute-user, #gauge-transactions-per-minute-meta {
-    //height: 100px;
-}
-
 code {
     color: var(--code-color);
     font-size: 14px;
@@ -229,6 +225,8 @@ code {
         td {
             display: table-cell;
             padding: 0.652rem!important;
+            overflow: hidden;
+            white-space: nowrap;
         }
     }
 }

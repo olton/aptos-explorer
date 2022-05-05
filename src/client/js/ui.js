@@ -82,6 +82,7 @@ export const updateLatestTransactions = data => {
 
 export const updateTransaction = transaction => {
     const tranType = {
+        'genesis_transaction': 'GenesisTransaction',
         'user_transaction': 'UserTransaction',
         'block_metadata_transaction': 'BlockMetadata',
     }
@@ -98,7 +99,7 @@ export const updateTransaction = transaction => {
         $("#tr_status").removeClassBy("mif-").addClass(tran.success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red')
         $("#tr_number").text(tran.version)
         $("#tr_version").text(tran.version)
-        $("#tr_timestamp").text(datetime(user ? user.timestamp : meta.timestamp).format(dateFormat.full))
+        $("#tr_timestamp").text(user || meta ? datetime(user ? user.timestamp : meta.timestamp).format(dateFormat.full) : "And God created Aptos")
         $("#tr_type").text(tranType[tran.type])
         $("#tr_hash").text(tran.hash)
         $("#tr_state_hash").text(tran.state_root_hash)
@@ -113,7 +114,9 @@ export const updateTransaction = transaction => {
             }, 100)
         } else {
             $("#payload").html(`
-                <pre><code class="json">${JSON.stringify(tran.payload, null, 2)}</code></pre>
+                <div class="scrollable-container">
+                    <pre><code class="json">${JSON.stringify(tran.payload, null, 2)}</code></pre>
+                </div>
             `)
         }
 
@@ -172,7 +175,11 @@ export const updateTransaction = transaction => {
                     <td colspan="2">DATA</td>
                 `).appendTo(target)
                 $("<tr>").addClass(c.data ? '' : 'd-none').html(`
-                    <td colspan="2"><pre><code>${JSON.stringify(c.data, null, 2)}</code></pre></td>
+                    <td colspan="2">
+                        <div class="scrollable-container">
+                            <pre><code>${JSON.stringify(c.data, null, 2)}</code></pre>
+                        </div>
+                    </td>
                 `).appendTo(target)
                 $("<tr>").html(`
                     <td colspan="2" class="border-top bd-system border-2" style="line-height: 1px; height: 1px; padding: 0!important;"></td>
@@ -186,40 +193,69 @@ export const updateTransaction = transaction => {
             }, 100)
         } else {
             const target = $("#changes-list").clear()
+            let table
+
             for(let c of changes) {
+                target.append(
+                    $("<table>").addClass("table striped info-table").append(
+                        table = $("<tbody>")
+                    )
+                )
+
                 $("<tr>").html(`
                     <td>TYPE</td>
                     <td><div class="value">${c.type}</divc></td>
-                `).appendTo(target)
+                `).appendTo(table)
                 $("<tr>").html(`
                     <td>ADDRESS</td>
                     <td><div class="value long-value">${c.address}</div></td>
-                `).appendTo(target)
+                `).appendTo(table)
                 $("<tr>").html(`
                     <td>HASH</td>
                     <td><div class="value long-value">${c.hash}</div></td>
-                `).appendTo(target)
-                $("<tr>").addClass(c.data ? '' : 'd-none').html(`
-                    <td colspan="2">DATA</td>
-                `).appendTo(target)
-                $("<tr>").addClass(c.data ? '' : 'd-none').html(`
-                    <td colspan="2"><pre><code>${JSON.stringify(c.data, null, 2)}</code></pre></td>
-                `).appendTo(target)
-                $("<tr>").addClass(c.module ? '' : 'd-none').html(`
-                    <td colspan="2">MODULE</td>
-                `).appendTo(target)
-                $("<tr>").addClass(c.module ? '' : 'd-none').html(`
-                    <td colspan="2"><pre><code>${JSON.stringify(c.module, null, 2)}</code></pre></td>
-                `).appendTo(target)
-                $("<tr>").addClass(c.resource ? '' : 'd-none').html(`
-                    <td colspan="2">RESOURCE</td>
-                `).appendTo(target)
-                $("<tr>").addClass(c.module ? '' : 'd-none').html(`
-                    <td colspan="2"><pre><code>${JSON.stringify(c.resource, null, 2)}</code></pre></td>
-                `).appendTo(target)
-                $("<tr>").html(`
-                    <td colspan="2" class="border-top bd-system border-2" style="line-height: 1px; height: 1px; padding: 0!important;"></td>
-                `).appendTo(target)
+                `).appendTo(table)
+
+                if (c.data) {
+                    target.append($("<div>").addClass("bd-system").css("border-top", "dotted 1px"))
+                    target.append(
+                        $("<div>").addClass("text-bold fg-system p-2 reduce-2").html("DATA")
+                    )
+                    target.append(
+                        $("<div>").addClass("scrollable-container").html(`
+                        <pre><code class="mb-4">${JSON.stringify(c.data, null, 2)}</code></pre>
+                    `)
+                    )
+                    target.append($("<hr>"))
+                }
+
+
+                if (c.module) {
+                    target.append($("<div>").addClass("bd-system").css("border-top", "dotted 1px"))
+                    target.append(
+                        $("<div>").addClass("text-bold fg-system p-2 reduce-2").html("MODULE")
+                    )
+                    target.append(
+                        $("<div>").addClass("scrollable-container").html(`
+                        <pre><code class="mb-4">${JSON.stringify(c.module, null, 2)}</code></pre>
+                    `)
+                    )
+                    target.append($("<hr>"))
+                }
+
+
+                if (c.resource) {
+                    target.append($("<div>").addClass("bd-system").css("border-top", "dotted 1px"))
+                    target.append(
+                        $("<div>").addClass("text-bold fg-system p-2 reduce-2").html("RESOURCE")
+                    )
+                    target.append(
+                        $("<div>").addClass("scrollable-container").html(`
+                        <pre><code class="mb-4">${JSON.stringify(c.resource, null, 2)}</code></pre>
+                    `)
+                    )
+
+                    target.append($("<hr>"))
+                }
             }
         }
     }

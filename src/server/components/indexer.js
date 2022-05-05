@@ -114,6 +114,7 @@ export const searchAccount = async (val) => {
 }
 
 export const getTransaction = async (hash) => {
+    console.log(hash)
     const tr_data = (await query(`select * from transactions t where t.hash = $1`, [hash])).rows
     const tr_user = (await query(`select * from user_transactions where hash = $1`, [hash])).rows
     const tr_meta = (await query(`select * from block_metadata_transactions where hash = $1`, [hash])).rows
