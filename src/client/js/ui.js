@@ -103,20 +103,13 @@ export const updateTransaction = transaction => {
         $("#tr_event_hash").text(tran.event_root_hash)
         $("#tr_accumulator_hash").text(tran.accumulator_root_hash)
         $("#tr_gas_used").text(n2f(tran.gas_used))
-        $("#tr_vm_status").addClass(`${tran.success ? '' : 'fg-red'}`).text(tran.vm_status)
+        $("#tr_vm_status").addClass(`${tran.success ? 'success' : 'fail'}`).text(tran.vm_status)
 
         if (!tran.payload) {
             setTimeout(()=>{
                 $("#payload-wrapper").parent().hide()
             }, 100)
         } else {
-            $("#payload_type").text(tran.payload.type)
-            $("#payload_function").text(tran.payload.function)
-            $("#payload_arguments").html(`
-                <ol class="decimal votes-list">
-                    <li>${tran.payload.arguments.join("</li><li>")}</li>
-                </ol>
-            `)
             $("#payload").html(`
                 <pre class="json"><code>${JSON.stringify(tran.payload, null, 2)}</code></pre>
             `)

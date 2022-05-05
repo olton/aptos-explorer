@@ -79,7 +79,7 @@ header nav {
 .scrollable-container .scrollable-table td:not(.vm-status) {
   white-space: nowrap!important;
 }
-.vm-status {
+.vm-status.fail {
   color: var(--alert-color) !important;
 }
 .link {
