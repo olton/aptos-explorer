@@ -1,6 +1,7 @@
 import {updateCurrentTime, withCtx, toast} from "./utils.js";
 import {connect, request} from "./websocket.js";
-import {updateAddress, updateLedger, updateTransactionsByType} from "./ui.js";
+import {updateAccount, updateLedger, updateTransactionsByType} from "./ui.js";
+import {submitSearchForm} from "./search.js";
 
 const wsMessageController = (ws, response) => {
     const {channel, data} = response
@@ -35,12 +36,11 @@ const requestUserTransactions = () => request("user-transactions", {address})
 
 withCtx(globalThis, {
     toast,
-    wsMessageController
+    wsMessageController,
+    submitSearchForm
 })
 
 updateCurrentTime()
 connect()
 
-console.log(address)
-
-updateAddress(address)
+updateAccount({address, account, resources, modules, transactions, metadata, events})

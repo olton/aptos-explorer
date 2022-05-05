@@ -1,0 +1,59 @@
+doctype html
+html(lang="en").scrollbar-type-1.sb-darkCyan
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+
+        link(rel="stylesheet", href="/vendor/metro4/css/metro-all.css")
+        link(rel="stylesheet", href="/css/index.css")
+
+        title #{appName}
+
+        script.
+            globalThis.address = !{address}
+            globalThis.account = !{account}
+            globalThis.resources = !{resources}
+            globalThis.modules = !{modules}
+            globalThis.transactions = !{trans}
+            globalThis.metadata = !{meta}
+            globalThis.events = !{events}
+
+    body.m4-cloak
+        include header
+        include search
+
+        section.container-fluid
+            div.container
+
+                h1.text-center
+                    span#user_icon.fg-system
+
+                h1.text-center.fg-system Account Info
+                h2.fg-system.text-light.value.long-value.text-center#address
+                hr.thin
+                div.text-leader.text-center
+                    span TYPE:
+                    span.ml-2#user-type
+
+        section.container-fluid
+            div.container
+                div.mt-5#general-wrapper(data-role="panel" data-title-caption="General" data-title-icon="<span class='mif-info'>" data-cls-title-caption="text-upper text-left")
+                    table.table.striped.info-table
+                        tbody
+                            tr
+                                td AUTHENTICATION KEY
+                                td
+                                    div.value.long-value#authentication_key
+                            tr
+                                td SEQUENCE NUMBER
+                                td
+                                    div.value#sequence_number
+
+                div.mt-5#resources-wrapper(data-role="panel" data-collapsible="true" data-collapsed="true" data-title-caption="Resources" data-title-icon="<span class='mif-info'>" data-cls-title-caption="text-upper text-left")
+                    div#resources
+
+        include footer
+
+        include scripts
+
+        script(type="module", src="/js/account-info.js")

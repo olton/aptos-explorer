@@ -129,7 +129,7 @@ export const getTransaction = async (hash) => {
     }
 }
 
-export const getUserTransactions = async (sender, {limit = 25, offset = 0}) => {
+export const getUserTransactions = async (sender, {limit = 25, offset = 0} = {}) => {
     const sql = `
         select
             t.version,
@@ -151,11 +151,35 @@ export const getUserTransactions = async (sender, {limit = 25, offset = 0}) => {
         from transactions t
         left join user_transactions ut on t.hash = ut.hash
         where type = 'user_transaction' and sender = $1
-        order by t.inserted_at desc
+        order by ut.timestamp desc
         limit $2 offset $3    
     `
 
     return (await query(sql, [sender, limit, offset])).rows
+}
+
+export const getMetaTransactions = async (proposer, {limit = 25, offset = 0} = {}) => {
+    const sql = `
+        select
+            t.version,
+            t.type,
+            t.hash,
+            t.gas_used,
+            t.success,
+            t.vm_status,
+            m.id,
+            m.round,
+            m.previous_block_votes,
+            m.proposer,
+            m.timestamp at time zone 'utc' as timestamp
+        from transactions t
+        left join block_metadata_transactions m on t.hash = m.hash
+        where type = 'block_metadata_transaction' and proposer = $1
+        order by m.timestamp desc
+        limit $2 offset $3    
+    `
+
+    return (await query(sql, [proposer, limit, offset])).rows
 }
 
 export const gaugeTransactionsPerMinute = async (limit = 60) => {
@@ -211,4 +235,67 @@ export const cacheGaugeTransactionsPerMinute = async (limit = 61) => {
     cache.gaugeTransPerMinuteUser = await gaugeTransactionsPerMinuteByType(TRANSACTION_TYPE_USER, limit)
     cache.gaugeTransPerMinuteMeta = await gaugeTransactionsPerMinuteByType(TRANSACTION_TYPE_META, limit)
     setTimeout(cacheGaugeTransactionsPerMinute, 60000, limit)
+}
+
+export const getReceivedEvents = async (address, {limit = 25, offset = 0} = {}) => {
+    const sql = `
+    select 
+        ut.sender,
+        t.hash,
+        e.key,
+        e.sequence_number,
+        e.type,
+        e.data->>'amount' as amount,
+        iif(e.type = '0x1::TestCoin::ReceivedEvent', e.data->>'from', e.data->>'to') as target,
+        e.inserted_at,
+        t.version,
+        t.gas_used,
+        ut.gas_unit_price,
+        t.success,
+        t.vm_status,
+        ut.expiration_timestamp_secs,
+        ut.timestamp
+    from events e
+    left join transactions t on e.transaction_hash = t.hash
+    left join user_transactions ut on t.hash = ut.hash
+    where e.data->>'to' = $1
+    order by e.inserted_at desc
+    limit $2 offset $3
+    `
+
+    return (await query(sql, [address, limit, offset])).rows
+}
+
+export const getSentEvents = async (address, {limit = 25, offset = 0} = {}) => {
+    const sql = `
+    select 
+        ut.sender,
+        t.hash,
+        e.key,
+        e.sequence_number,
+        e.type,
+        e.data->>'amount' as amount,
+        iif(e.type = '0x1::TestCoin::ReceivedEvent', e.data->>'from', e.data->>'to') as target,
+        e.inserted_at,
+        t.version,
+        t.gas_used,
+        ut.gas_unit_price,
+        t.success,
+        t.vm_status,
+        ut.expiration_timestamp_secs,
+        ut.timestamp
+    from events e
+    left join transactions t on e.transaction_hash = t.hash
+    left join user_transactions ut on t.hash = ut.hash
+    where ut.sender = $1 and e.type = '0x1::TestCoin::SentEvent'
+    order by e.inserted_at desc
+    limit $2 offset $3
+    `
+
+    return (await query(sql, [address, limit, offset])).rows
+}
+
+export const getUserEvents = async (address, {limit = 25, offset = 0} = {}) => {
+    const sql = `select * from events where data::text like $1`
+    return (await query(sql, [`%${address}%`, limit, offset]))
 }

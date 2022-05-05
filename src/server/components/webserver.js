@@ -7,7 +7,15 @@ import session from "express-session"
 import {websocket} from "./websocket.js"
 import {info} from "../helpers/logging.js";
 import favicon from "serve-favicon"
-import {getTransaction, getUserTransactions, searchAccount, searchTransaction} from "./indexer.js";
+import {
+    getMetaTransactions, getReceivedEvents,
+    getSentEvents,
+    getTransaction, getUserEvents,
+    getUserTransactions,
+    searchAccount,
+    searchTransaction
+} from "./indexer.js";
+import assert from "assert";
 
 const app = express()
 
@@ -71,12 +79,18 @@ const route = () => {
 
     app.get('/account/:hash', async (req, res) => {
         const address = req.params.hash
-        res.render('address-info', {
+        res.render('account-info', {
             title: appName,
             appVersion,
             clientConfig,
             dateFormat,
-            address: JSON.stringify(address)
+            address: JSON.stringify(address),
+            account: JSON.stringify(await aptos.getAccount(address)),
+            resources: JSON.stringify(await aptos.getAccountResources(address)),
+            modules: JSON.stringify(await aptos.getAccountModules(address)),
+            trans: JSON.stringify(await getUserTransactions(address)),
+            meta: JSON.stringify(await getMetaTransactions(address)),
+            events: JSON.stringify(await getUserEvents(address))
         })
     })
 
@@ -91,6 +105,16 @@ const route = () => {
         if (!result) {
             result = await searchAccount(val)
             target = 'account'
+        }
+        if (!result) {
+            try {
+                const acc = await aptos.getAccount(val)
+                target = 'account'
+                assert(acc.authentication_key)
+                result = val
+            } catch (e) {
+
+            }
         }
 
         if (!result) {

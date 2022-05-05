@@ -277,6 +277,53 @@ export const updateTransaction = transaction => {
     }
 }
 
-export const updateAddress = address => {
-    $("#address").text(shorten(address, 12))
+export const updateAccount = (data) => {
+    console.log(data)
+    const {address, account, resources, modules, transaction, metadata, events} = data
+    let validator = false
+
+    $("#address").text(address)
+    $("#authentication_key").text(account.authentication_key)
+    $("#sequence_number").text(account.sequence_number)
+
+    for(let r of resources ) {
+        if (r.type === '0x1::Stake::ValidatorConfig')
+            validator = true
+    }
+
+    $("#user_icon").addClass(validator ? 'mif-user-secret' : 'mif-organization')
+    $("#user-type").html(validator ? 'VALIDATOR' : 'SIMPLE USER')
+
+    if (!resources) {
+
+    } else {
+        const target = $("#resources").clear()
+        let index = 0, table
+
+        for(let r of resources) {
+            if (index) target.append($("<div>").addClass("bd-system").css("border-top", "dotted 1px"))
+
+            target.append(
+                $("<table>").addClass("table striped info-table").append(
+                    table = $("<tbody>")
+                )
+            )
+
+            $("<tr>").html(`
+                <td>TYPE</td>
+                <td><div class="value">${r.type}</divc></td>
+            `).appendTo(table)
+            $("<tr>").html(`
+                <td colspan="2">DATA</td>
+            `).appendTo(table)
+
+            target.append(
+                $("<div>").addClass("mt-2 scrollable-container").html(`
+                    <pre><code class="mb-4">${JSON.stringify(r.data, null, 2)}</code></pre>
+                `)
+            )
+
+            index++
+        }
+    }
 }
