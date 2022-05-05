@@ -1,20 +1,23 @@
 :root {
-    --border-radius: 10px;
-    --button-border-radius: 6px;
-    --button-snall-border-radius: 4px;
-    --button-mini-border-radius: 4px;
     --body-background: #fff;
+
     --form-background: #fff;
     --dialog-background: #fff;
     --border-color: #d9d9d9;
-    --primary-background: #fef5e6;
-    --secondary-background: #f59f00;
+
     --alert-color: #ff0e0e;
     --success-color: #60a917;
     --warning-color: #ff9f31;
     --info-color: #428aff;
+
     --text-color: #000;
     --text-color-light: #fff;
+
+    --border-radius: 10px;
+}
+
+.fg-system {
+    color: var(--text-color)!important;
 }
 
 .fg-yel {
@@ -200,6 +203,10 @@ header {
 
 #gauge-transactions-per-minute-all, #gauge-transactions-per-minute-user, #gauge-transactions-per-minute-meta {
     //height: 100px;
+}
+
+code {
+    color: var(--text-color);
 }
 
 @media screen and (min-width: 800px) {

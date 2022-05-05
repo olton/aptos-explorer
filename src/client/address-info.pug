@@ -8,12 +8,17 @@ html(lang="en")
         link(rel="stylesheet", href="/css/index.css")
 
         title #{appName}
+
+        script.
+            globalThis.address = !{address}
+
     body.m4-cloak
         include header
 
         section.container-fluid
             div.container
-                h1 Address Info
+                h1 Account Info
+                div.h5.long-value#address
 
         include footer
 

@@ -54,7 +54,9 @@ export const updateLatestTransactions = data => {
         $("<tr>").html(`
             <td><span class='${success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red'}'></span></td>
             <td><span class='${type === 'user_transaction' ? 'mif-user fg-green' : 'mif-server fg-cyan'}'></span></td>
-            <td class="text-center">${n2f(version)}</td>
+            <td class="text-center">
+                <a class="link" href="/transaction/${hash}">${n2f(version)}</a>                
+            </td>
             <td>
                 <a class="link" href="/transaction/${hash}">${shorten(hash, 8)}</a>
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${hash}" title="Click to copy hash to clipboard"></span>
@@ -89,6 +91,8 @@ export const updateTransaction = transaction => {
     const meta = transaction.meta
 
     if (tran) {
+        $("#transaction-hash").text(tran.hash)
+
         $("#tr_status").removeClassBy("mif-").addClass(tran.success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red')
         $("#tr_number").text(tran.version)
         $("#tr_version").text(tran.version)
@@ -102,7 +106,9 @@ export const updateTransaction = transaction => {
         $("#tr_vm_status").addClass(`${tran.success ? '' : 'fg-red'}`).text(tran.vm_status)
 
         if (!tran.payload) {
-            $("#payload-wrapper").hide()
+            setTimeout(()=>{
+                $("#payload-wrapper").parent().hide()
+            }, 100)
         } else {
             $("#payload_type").text(tran.payload.type)
             $("#payload_function").text(tran.payload.function)
@@ -111,10 +117,15 @@ export const updateTransaction = transaction => {
                     <li>${tran.payload.arguments.join("</li><li>")}</li>
                 </ol>
             `)
+            $("#payload").html(`
+                <pre class="json"><code>${JSON.stringify(tran.payload, null, 2)}</code></pre>
+            `)
         }
 
         if (!user) {
-            $("#userdata-wrapper").hide()
+            setTimeout(()=>{
+                $("#userdata-wrapper").parent().hide()
+            }, 100)
         } else {
             $("#user_sequence_number").text(user.sequence_number)
             $("#user_sender").text(user.sender)
@@ -124,10 +135,13 @@ export const updateTransaction = transaction => {
             $("#user_signature_public_key").text(user.signature.public_key)
             $("#user_signature_value").text(shorten(user.signature.signature, 32))
             $("#user_signature_type").text(user.signature.type)
+            $("#user_expiration_timestamp").text(datetime(user.expiration_timestamp_secs).format(dateFormat.full))
         }
 
         if (!meta) {
-            $("#metadata-wrapper").hide()
+            setTimeout(()=>{
+                $("#metadata-wrapper").parent().hide()
+            }, 100)
         } else {
             $("#meta_id").text(meta.id)
             $("#meta_round").text(meta.round)
@@ -140,4 +154,8 @@ export const updateTransaction = transaction => {
             `)
         }
     }
+}
+
+export const updateAddress = address => {
+    $("#address").text(shorten(address, 12))
 }

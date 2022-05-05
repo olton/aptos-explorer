@@ -1,24 +1,46 @@
 html.dark-mode {
+
     --body-background: #1e2228;
-    --color-text: #adbaa9;
-    --color-text-inverse: #24292e;
-    --color-border: #444c56;
-    --color-panel: #22272e;
-    --color-panel-second: #1b2125;
-    --color-panel-title: #ff8330;
-    --color-accent: #fff;
-    --color-neutral: #b6b6b6;
-    --color-success: #7dc37b;
-    --color-warning: #ff8330;
-    --color-alert: #ea0b0b;
-    --color-info: rgba(27, 161, 226, 0.56);
-    --color-info2: #4db5ff;
-    --color-yellow: #ffdb10;
-    --color-white: #fff;
-    --color-gray: #b6b6b6;
-    --color-active: #4db5ff;
-    --color-stop: #24292e;
-    --color-inactive: #4b4b4b;
+    --form-background: #fff;
+    --dialog-background: #fff;
+    --border-color: #444c56;
+
+    --panel-color: #22272e;
+    --panel-color-secondary: #1b2125;
+    --panel-color-title: #ff8330;
+
+    --alert-color: #ff0e0e;
+    --success-color: #60a917;
+    --warning-color: #ff9f31;
+    --info-color: #428aff;
+
+    --text-color: #adbaa9;
+    --text-color-accent: #fff;
+
+    --border-radius: 10px;
+
+    //--color-text: #adbaa9;
+    //--color-text-inverse: #24292e;
+    //--color-border: #444c56;
+    //--color-panel: #22272e;
+    //--color-panel-second: #1b2125;
+    //--color-panel-title: #ff8330;
+    //--color-neutral: #b6b6b6;
+    //--color-success: #7dc37b;
+    //--color-warning: #ff8330;
+    //--color-alert: #ea0b0b;
+    //--color-info: rgba(27, 161, 226, 0.56);
+    //--color-info2: #4db5ff;
+    //--color-yellow: #ffdb10;
+    //--color-white: #fff;
+    //--color-gray: #b6b6b6;
+    //--color-active: #4db5ff;
+    //--color-stop: #24292e;
+    //--color-inactive: #4b4b4b;
+
+    .fg-system {
+        color: var(--text-color)!important;
+    }
 
     body, .panel, .input, .icon-box {
         background: var(--body-background);
@@ -27,15 +49,15 @@ html.dark-mode {
 
     input, select {
         background: transparent!important;
-        color: var(--color-text)!important;
+        color: var(--text-color)!important;
     }
 
     .bd-system, .bd-default, .panel, .panel-title, td, .input, .select {
-        border-color: var(--color-border)!important;
+        border-color: var(--border-color)!important;
     }
 
     .panel-title, .value {
-        color: var(--color-accent) !important;
+        color: var(--text-color-accent) !important;
     }
 
     input:-webkit-autofill,
@@ -45,7 +67,7 @@ html.dark-mode {
         -webkit-box-shadow: 0 0 0 30px var(--body-background) inset !important;
     }
     input:-webkit-autofill{
-        -webkit-text-fill-color: var(--color-text) !important;
+        -webkit-text-fill-color: var(--text-color) !important;
     }
 
     .light-mode-switch {
@@ -58,26 +80,26 @@ html.dark-mode {
 
     .table {
         th {
-            color: var(--color-accent)!important;
+            color: var(--text-color-accent)!important;
         }
         td:not(.vm-status) {
-            color: var(--color-text)!important;
+            color: var(--text-color)!important;
         }
 
         &.striped {
             tbody tr:nth-child(even),
             .tbody .tr:nth-child(even) {
-                background: var(--color-panel);
+                background: var(--panel-color);
             }
         }
 
         thead {
-            border-bottom-color: var(--color-border)!important;
+            border-bottom-color: var(--border-color)!important;
         }
 
         &.row-border {
             tr + tr, .tr + .tr  {
-                border-top: 1px var(--color-border) solid;
+                border-top: 1px var(--border-color) solid;
             }
         }
     }
@@ -86,32 +108,44 @@ html.dark-mode {
         background: var(--body-background);
         .app-bar {
             background: inherit;
-            color: var(--color-accent);
+            color: var(--text-color-accent);
         }
     }
 
     #app-title, .box-value {
-        color: var(--color-accent)!important;
+        color: var(--text-color-accent)!important;
     }
 
     .link {
-        color: var(--color-text);
+        color: var(--text-color);
         &:hover {
-            color: var(--color-accent);
+            color: var(--text-color-accent);
         }
     }
 
     hr {
-        background-color: var(--color-border)!important;
+        background-color: var(--border-color)!important;
     }
 
     .vm-status {
-        color: var(--color-alert)!important;
+        color: var(--alert-color)!important;
     }
 
     .switch input[type="checkbox"]:checked ~ .check {
-        background: var(--color-panel);
-        border-color: var(--color-border);
-        color: var(--color-panel);
+        background: var(--panel-color);
+        border-color: var(--border-color);
+        color: var(--panel-color);
+    }
+
+    .panel {
+        .title {
+            color: var(--panel-color-title);
+        }
+    }
+
+    .icon-box {
+        .content {
+            color: var(--text-color);
+        }
     }
 }

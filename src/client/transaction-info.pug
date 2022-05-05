@@ -17,76 +17,57 @@ html(lang="en")
 
         section.container-fluid
             div.container
-                h1.d-flex.flex-row
+                h1.row
                    span.text-muted Transaction:
                    span.ml-2.value#tr_number
                    span.ml-auto#tr_status
 
                 hr.thin
+                h2.fg-system.text-light.long-value.text-center#transaction-hash
+                hr.thin
 
-                h4.text-light.border-bottom.bd-system.pb-2
-                    span.mif-info.mr-3.va-middle.text-muted
-                    span General
-
-                table.table.striped.info-table
-                    tbody
-                        tr
-                            td TYPE
-                            td
-                                div.value#tr_type
-                        tr
-                            td TIMESTAMP
-                            td
-                                div.value.long-value#tr_timestamp
-                        tr
-                            td HASH
-                            td
-                                div.value.long-value#tr_hash
-                        tr
-                            td STATE HASH
-                            td
-                                div.value.long-value#tr_state_hash
-                        tr
-                            td EVENT HASH
-                            td
-                                div.value.long-value#tr_event_hash
-                        tr
-                            td ACCUMULATOR HASH
-                            td
-                                div.value.long-value#tr_accumulator_hash
-                        tr
-                            td GAS USED
-                            td
-                                div.value#tr_gas_used
-                        tr
-                            td VM STATUS
-                            td
-                                div.value#tr_vm_status
-
-                div#payload-wrapper.mt-10
-                    h4.text-light.border-bottom.bd-system.pb-2
-                        span.mif-download.mr-3.va-middle.text-muted
-                        span Payload
+                div.mt-10#general-wrapper(data-role="panel" data-title-caption="General" data-title-icon="<span class='mif-info'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table
                         tbody
                             tr
                                 td TYPE
                                 td
-                                    div.value#payload_type
+                                    div.value#tr_type
                             tr
-                                td FUNCTION
+                                td TIMESTAMP
                                 td
-                                    div.value#payload_function
+                                    div.value.long-value#tr_timestamp
                             tr
-                                td ARGUMENTS
+                                td HASH
                                 td
-                                    div.value#payload_arguments
+                                    div.value.long-value#tr_hash
+                            tr
+                                td STATE HASH
+                                td
+                                    div.value.long-value#tr_state_hash
+                            tr
+                                td EVENT HASH
+                                td
+                                    div.value.long-value#tr_event_hash
+                            tr
+                                td ACCUMULATOR HASH
+                                td
+                                    div.value.long-value#tr_accumulator_hash
+                            tr
+                                td GAS USED
+                                td
+                                    div.value#tr_gas_used
+                            tr
+                                td VM STATUS
+                                td
+                                    div.value.vm-status#tr_vm_status
+
+                div#payload-wrapper.mt-10(data-role="panel" data-title-caption="Payload" data-title-icon="<span class='mif-attachment'>" data-cls-title-caption="text-upper text-left")
+                    div
+                        div#payload
 
 
-                div#metadata-wrapper.mt-10
-                    h4.text-light.border-bottom.bd-system.pb-2
-                        span.mif-server.mr-3.va-middle.text-muted
-                        span Metadata
+                div#metadata-wrapper.mt-10(data-role="panel" data-title-caption="Metadata" data-title-icon="<span class='mif-server'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table
                         tbody
                             tr
@@ -110,10 +91,7 @@ html(lang="en")
                                 td
                                     div.value#meta_votes
 
-                div#userdata-wrapper.mt-10
-                    h4.text-light.border-bottom.bd-system.pb-2
-                        span.mif-user.mr-3.va-middle.text-muted
-                        span Userdata
+                div#userdata-wrapper.mt-10(data-role="panel" data-title-caption="Userdata" data-title-icon="<span class='mif-server'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table
                         tbody
                             tr
@@ -121,9 +99,17 @@ html(lang="en")
                                 td
                                     div.value#user_sequence_number
                             tr
+                                td EXPIRATION TIMESTAMP
+                                td
+                                    div.value.long-value#user_expiration_timestamp
+                            tr
                                 td SENDER
                                 td
                                     div.value.long-value#user_sender
+                            tr
+                                td GAS CURRENCY
+                                td
+                                    div.value#user_gas_currency XXX
                             tr
                                 td MAX GAS AMOUNT
                                 td
