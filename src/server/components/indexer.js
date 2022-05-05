@@ -302,6 +302,6 @@ export const getSentEvents = async (address, {limit = 25, offset = 0} = {}) => {
 }
 
 export const getUserEvents = async (address, {limit = 25, offset = 0} = {}) => {
-    const sql = `select * from events where data::text like $1`
+    const sql = `select * from events where data::text like $1 limit $2 offset $3`
     return (await query(sql, [`%${address}%`, limit, offset]))
 }
