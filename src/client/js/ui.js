@@ -62,7 +62,7 @@ export const updateLatestTransactions = data => {
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${hash}" title="Click to copy hash to clipboard"></span>
             </td>
             <td>
-                <a class="link" href="/address/${sender}">${shorten(sender, 8)}</a>
+                <a class="link" href="/account/${sender}">${shorten(sender, 8)}</a>
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${sender}" title="Click to copy hash to clipboard"></span>
             </td>
             <td>${type === 'user_transaction' ? (payload_func || 'USERDATA').substring(0, 30) : 'VOTES'}</td>
@@ -91,9 +91,6 @@ export const updateTransaction = transaction => {
     const meta = transaction.meta
     const events = transaction.events
     const changes = transaction.changes
-
-    console.log(events)
-    console.log(changes)
 
     if (tran) {
         $("#transaction-hash").text(tran.hash)

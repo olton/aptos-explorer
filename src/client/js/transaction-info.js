@@ -4,6 +4,7 @@ import {
     updateLedger, updateTransaction,
     updateTransactionsByType
 } from "./ui.js";
+import {submitSearchForm} from "./search.js";
 
 const wsMessageController = (ws, response) => {
     const {channel, data} = response
@@ -38,7 +39,8 @@ const requestTransactionsByType = () => request("transactions-by-type")
 
 withCtx(globalThis, {
     toast,
-    wsMessageController
+    wsMessageController,
+    submitSearchForm
 })
 
 updateCurrentTime()

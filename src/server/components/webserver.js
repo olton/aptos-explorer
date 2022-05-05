@@ -7,7 +7,7 @@ import session from "express-session"
 import {websocket} from "./websocket.js"
 import {info} from "../helpers/logging.js";
 import favicon from "serve-favicon"
-import {getTransaction, getUserTransactions} from "./indexer.js";
+import {getTransaction, getUserTransactions, searchAccount, searchTransaction} from "./indexer.js";
 
 const app = express()
 
@@ -69,7 +69,7 @@ const route = () => {
         })
     })
 
-    app.get('/address/:hash', async (req, res) => {
+    app.get('/account/:hash', async (req, res) => {
         const address = req.params.hash
         res.render('address-info', {
             title: appName,
@@ -78,6 +78,32 @@ const route = () => {
             dateFormat,
             address: JSON.stringify(address)
         })
+    })
+
+    app.post('/search', async (req, res) => {
+        const val = req.body.search
+        let result, target, value
+
+        if (!result) {
+            result = await searchTransaction(val)
+            target = 'transaction'
+        }
+        if (!result) {
+            result = await searchAccount(val)
+            target = 'account'
+        }
+
+        if (!result) {
+            res.send({
+                ok: false
+            })
+        } else {
+            res.send({
+                ok: true,
+                target,
+                value: result
+            })
+        }
     })
 }
 

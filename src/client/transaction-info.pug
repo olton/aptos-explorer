@@ -14,17 +14,18 @@ html(lang="en")
 
     body.m4-cloak
         include header
+        include search
 
         section.container-fluid
             div.container
-                h1.row
-                   span.text-muted Transaction:
-                   span.ml-2.value#tr_number
-                   span.ml-auto#tr_status
 
+                h1.text-center.fg-system Transaction Info
+                h2.fg-system.text-light.value.long-value.text-center#transaction-hash
                 hr.thin
-                h2.fg-system.text-light.long-value.text-center#transaction-hash
-                hr.thin
+                div.h3.row.mt-10
+                    span.text-muted Version:
+                    span.ml-2.value#tr_number
+                    span.ml-auto#tr_status
 
                 div.mt-10#general-wrapper(data-role="panel" data-title-caption="General" data-title-icon="<span class='mif-info'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table

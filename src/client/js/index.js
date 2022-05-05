@@ -8,6 +8,7 @@ import {
     updateTransactionsByType
 } from "./ui.js";
 import {drawGaugeTransactionsPerMinute} from "./gauges.js";
+import {submitSearchForm} from "./search.js";
 
 const wsMessageController = (ws, response) => {
     const {channel, data} = response
@@ -79,7 +80,8 @@ const autoReloadLastTransactions = true
 withCtx(globalThis, {
     toast,
     wsMessageController,
-    autoReloadLastTransactions
+    autoReloadLastTransactions,
+    submitSearchForm
 })
 
 updateCurrentTime()
