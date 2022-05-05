@@ -99,10 +99,14 @@ export const getTransaction = async (hash) => {
     const tr_data = (await query(`select * from transactions t where t.hash = $1`, [hash])).rows
     const tr_user = (await query(`select * from user_transactions where hash = $1`, [hash])).rows
     const tr_meta = (await query(`select * from block_metadata_transactions where hash = $1`, [hash])).rows
+    const tr_events = (await query(`select * from events where transaction_hash = $1`, [hash])).rows
+    const tr_changes = (await query(`select * from write_set_changes where transaction_hash = $1`, [hash])).rows
     return {
         tran: tr_data.length ? tr_data[0] : null,
         user: tr_user.length ? tr_user[0] : null,
-        meta: tr_meta.length ? tr_meta[0] : null
+        meta: tr_meta.length ? tr_meta[0] : null,
+        events: tr_events.length ? tr_events : null,
+        changes: tr_changes.length ? tr_changes : null
     }
 }
 

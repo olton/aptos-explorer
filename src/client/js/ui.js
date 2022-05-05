@@ -65,7 +65,7 @@ export const updateLatestTransactions = data => {
                 <a class="link" href="/address/${sender}">${shorten(sender, 8)}</a>
                 <span class="ml-2 c-pointer mif-copy copy-data-to-clipboard text-muted" data-value="${sender}" title="Click to copy hash to clipboard"></span>
             </td>
-            <td>${payload_func ? payload_func.substr(5) : 'METADATA'}</td>
+            <td>${type === 'user_transaction' ? (payload_func || 'USERDATA').substring(0, 30) : 'VOTES'}</td>
             <td class="text-right">${n2f(amount || 0)}</td>
             <td class="text-right">${n2f((gas_used || 0) * (gas_unit_price || 0))}</td>
             <td>
@@ -89,6 +89,11 @@ export const updateTransaction = transaction => {
     const tran = transaction.tran
     const user = transaction.user
     const meta = transaction.meta
+    const events = transaction.events
+    const changes = transaction.changes
+
+    console.log(events)
+    console.log(changes)
 
     if (tran) {
         $("#transaction-hash").text(tran.hash)
@@ -111,7 +116,7 @@ export const updateTransaction = transaction => {
             }, 100)
         } else {
             $("#payload").html(`
-                <pre class="json"><code>${JSON.stringify(tran.payload, null, 2)}</code></pre>
+                <pre><code class="json">${JSON.stringify(tran.payload, null, 2)}</code></pre>
             `)
         }
 
@@ -141,10 +146,84 @@ export const updateTransaction = transaction => {
             $("#meta_proposer").text(meta.proposer)
             $("#meta_timestamp").text(datetime(meta.timestamp).format(dateFormat.full))
             $("#meta_votes").html(`
-                <ol class="decimal votes-list">
-                    <li>${meta.previous_block_votes.join("</li><li>")}</li>
-                </ol>
+                <ul class="decimal votes-list">
+                    <li>${meta.previous_block_votes.join("</li><li class='border-top bd-system'>")}</li>
+                </ul>
             `)
+        }
+
+        if (!events) {
+            setTimeout(()=>{
+                $("#events-wrapper").parent().hide()
+            }, 100)
+        } else {
+            const target = $("#events-list").clear()
+            for(let c of events) {
+                $("<tr>").html(`
+                    <td>TYPE</td>
+                    <td>${c.type}</td>
+                `).appendTo(target)
+                $("<tr>").html(`
+                    <td>KEY</td>
+                    <td><div class="value long-value">${c.key}</div></td>
+                `).appendTo(target)
+                $("<tr>").html(`
+                    <td>SEQUENCE NUMBER</td>
+                    <td><div class="value long-value">${c.sequence_number}</div></td>
+                `).appendTo(target)
+                $("<tr>").addClass(c.data ? '' : 'd-none').html(`
+                    <td colspan="2">DATA</td>
+                `).appendTo(target)
+                $("<tr>").addClass(c.data ? '' : 'd-none').html(`
+                    <td colspan="2"><pre><code>${JSON.stringify(c.data, null, 2)}</code></pre></td>
+                `).appendTo(target)
+                $("<tr>").html(`
+                    <td colspan="2" class="border-top bd-system border-2" style="line-height: 1px; height: 1px; padding: 0!important;"></td>
+                `).appendTo(target)
+            }
+        }
+
+        if (!changes) {
+            setTimeout(()=>{
+                $("#changes-wrapper").parent().hide()
+            }, 100)
+        } else {
+            const target = $("#changes-list").clear()
+            for(let c of changes) {
+                $("<tr>").html(`
+                    <td>TYPE</td>
+                    <td>${c.type}</td>
+                `).appendTo(target)
+                $("<tr>").html(`
+                    <td>ADDRESS</td>
+                    <td><div class="value long-value">${c.address}</div></td>
+                `).appendTo(target)
+                $("<tr>").html(`
+                    <td>HASH</td>
+                    <td><div class="value long-value">${c.hash}</div></td>
+                `).appendTo(target)
+                $("<tr>").addClass(c.data ? '' : 'd-none').html(`
+                    <td colspan="2">DATA</td>
+                `).appendTo(target)
+                $("<tr>").addClass(c.data ? '' : 'd-none').html(`
+                    <td colspan="2"><pre><code>${JSON.stringify(c.data, null, 2)}</code></pre></td>
+                `).appendTo(target)
+                $("<tr>").addClass(c.module ? '' : 'd-none').html(`
+                    <td colspan="2">MODULE</td>
+                `).appendTo(target)
+                $("<tr>").addClass(c.module ? '' : 'd-none').html(`
+                    <td colspan="2"><pre><code>${JSON.stringify(c.module, null, 2)}</code></pre></td>
+                `).appendTo(target)
+                $("<tr>").addClass(c.resource ? '' : 'd-none').html(`
+                    <td colspan="2">RESOURCE</td>
+                `).appendTo(target)
+                $("<tr>").addClass(c.module ? '' : 'd-none').html(`
+                    <td colspan="2"><pre><code>${JSON.stringify(c.resource, null, 2)}</code></pre></td>
+                `).appendTo(target)
+                $("<tr>").html(`
+                    <td colspan="2" class="border-top bd-system border-2" style="line-height: 1px; height: 1px; padding: 0!important;"></td>
+                `).appendTo(target)
+            }
         }
     }
 }

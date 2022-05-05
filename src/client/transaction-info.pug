@@ -60,7 +60,7 @@ html(lang="en")
                             tr
                                 td VM STATUS
                                 td
-                                    div.value.vm-status#tr_vm_status
+                                    div.vm-status#tr_vm_status
 
                 div#payload-wrapper.mt-10(data-role="panel" data-title-caption="Payload" data-title-icon="<span class='mif-attachment'>" data-cls-title-caption="text-upper text-left")
                     div
@@ -87,9 +87,10 @@ html(lang="en")
                                 td
                                     div.value#meta_proposer
                             tr
-                                td BLOCK VOTES
-                                td
-                                    div.value#meta_votes
+                                td(colspan=2) PREVIOUS BLOCK VOTES:
+                            tr
+                                td(colspan=2)
+                                    div.value.text-light#meta_votes
 
                 div#userdata-wrapper.mt-10(data-role="panel" data-title-caption="Userdata" data-title-icon="<span class='mif-server'>" data-cls-title-caption="text-upper text-left")
                     table.table.striped.info-table
@@ -135,6 +136,13 @@ html(lang="en")
                                 td
                                     div.value#user_signature_type
 
+                div#changes-wrapper.mt-10(data-role="panel" data-title-caption="WRITE SET CHANGES" data-title-icon="<span class='mif-pencil'>" data-cls-title-caption="text-upper text-left")
+                    table.table.striped.info-table
+                        tbody#changes-list
+
+                div#events-wrapper.mt-10(data-role="panel" data-title-caption="EVENTS" data-title-icon="<span class='mif-event-available'>" data-cls-title-caption="text-upper text-left")
+                    table.table.striped.info-table
+                        tbody#events-list
 
 
         include footer

@@ -7,7 +7,6 @@ html.dark-mode {
 
     --panel-color: #22272e;
     --panel-color-secondary: #1b2125;
-    --panel-color-title: #ff8330;
 
     --alert-color: #ff0e0e;
     --success-color: #60a917;
@@ -19,24 +18,7 @@ html.dark-mode {
 
     --border-radius: 10px;
 
-    //--color-text: #adbaa9;
-    //--color-text-inverse: #24292e;
-    //--color-border: #444c56;
-    //--color-panel: #22272e;
-    //--color-panel-second: #1b2125;
-    //--color-panel-title: #ff8330;
-    //--color-neutral: #b6b6b6;
-    //--color-success: #7dc37b;
-    //--color-warning: #ff8330;
-    //--color-alert: #ea0b0b;
-    //--color-info: rgba(27, 161, 226, 0.56);
-    //--color-info2: #4db5ff;
-    //--color-yellow: #ffdb10;
-    //--color-white: #fff;
-    //--color-gray: #b6b6b6;
-    //--color-active: #4db5ff;
-    //--color-stop: #24292e;
-    //--color-inactive: #4b4b4b;
+    --code-color: #adbaa9;
 
     .fg-system {
         color: var(--text-color)!important;
@@ -133,15 +115,21 @@ html.dark-mode {
         color: var(--panel-color);
     }
 
-    .panel {
-        .title {
-            color: var(--panel-color-title);
-        }
-    }
-
     .icon-box {
         .content {
             color: var(--text-color);
+        }
+    }
+
+    code {
+        color: var(--code-color);
+    }
+
+    .panel {
+        .panel-title {
+            .icon {
+                border-right-color: var(--border-color);
+            }
         }
     }
 }

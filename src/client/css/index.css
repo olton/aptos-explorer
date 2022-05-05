@@ -10,6 +10,7 @@
   --text-color: #000;
   --text-color-light: #fff;
   --border-radius: 10px;
+  --code-color: #22272e;
 }
 .fg-system {
   color: var(--text-color) !important;
@@ -161,7 +162,8 @@ header nav {
   font-size: 10px;
 }
 code {
-  color: var(--text-color);
+  color: var(--code-color);
+  font-size: 14px;
 }
 @media screen and (min-width: 800px) {
   .info-table {
@@ -185,7 +187,6 @@ html.dark-mode {
   --border-color: #444c56;
   --panel-color: #22272e;
   --panel-color-secondary: #1b2125;
-  --panel-color-title: #ff8330;
   --alert-color: #ff0e0e;
   --success-color: #60a917;
   --warning-color: #ff9f31;
@@ -193,6 +194,7 @@ html.dark-mode {
   --text-color: #adbaa9;
   --text-color-accent: #fff;
   --border-radius: 10px;
+  --code-color: #adbaa9;
 }
 html.dark-mode .fg-system {
   color: var(--text-color) !important;
@@ -279,10 +281,13 @@ html.dark-mode .switch input[type="checkbox"]:checked ~ .check {
   border-color: var(--border-color);
   color: var(--panel-color);
 }
-html.dark-mode .panel .title {
-  color: var(--panel-color-title);
-}
 html.dark-mode .icon-box .content {
   color: var(--text-color);
+}
+html.dark-mode code {
+  color: var(--code-color);
+}
+html.dark-mode .panel .panel-title .icon {
+  border-right-color: var(--border-color);
 }
 /*# sourceMappingURL=index.css.map */
