@@ -59,7 +59,6 @@ const wsMessageController = (ws, response) => {
         }
 
         case 'gauge-transactions-per-minute': {
-            console.log(data)
             drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-all', data.all, '#5a74ec')
             drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-user', data.user, '#38800b')
             drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-meta', data.meta, '#d06714')

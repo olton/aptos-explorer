@@ -32,7 +32,7 @@ export const connect = () => {
     }
 
     ws.onopen = event => {
-        console.log('Connected to Aptos Wallet Server');
+        console.log('Connected to Aptos Explorer Server');
     }
 }
 
