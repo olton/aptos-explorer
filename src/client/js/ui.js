@@ -93,7 +93,18 @@ export const updateTransaction = transaction => {
     const events = transaction.events
     const changes = transaction.changes
 
+    let icon
+
     if (tran) {
+
+        switch (tran.type) {
+            case 'user_transaction': icon = "mif-user fg-green"; break;
+            case 'block_metadata_transaction': icon = "mif-server fg-cyan"; break;
+            case 'genesis_transaction': icon = "mif-cake fg-orange"; break;
+        }
+
+        $("#tr_icon").addClass(icon)
+
         $("#transaction-hash").text(tran.hash)
 
         $("#tr_status").removeClassBy("mif-").addClass(tran.success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red')
