@@ -14,7 +14,7 @@ export const search = async (val) => {
     const result = await response.json();
 
     if (!result.ok) {
-        toast("No data found by your request!", "warning")
+        toast("No data found by your request!", "alert")
         return false
     }
 
@@ -25,7 +25,7 @@ export const search = async (val) => {
 export const submitSearchForm = async form => {
     const val = form.elements['search_val'].value.trim()
     if (!val) {
-        toast("Please, enter a data for search!")
+        toast("Please, enter a data for search!", "alert")
         return false
     }
     await search(val)

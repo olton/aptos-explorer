@@ -96,9 +96,9 @@ export const cacheLatestTransactions = async (limit = 50) => {
 }
 
 export const searchTransaction = async (val) => {
-    let result, isInt = Number.isInteger(+val)
+    let result, _value = ""+val
 
-    if (isInt || +val === 0) {
+    if (!_value.startsWith("0x") && !isNaN(+val)) {
         result = (await query(`select hash from transactions where version = $1 limit 1`, [val])).rows
     } else {
         result = (await query(`select hash from transactions where hash = $1 limit 1`, [val])).rows
