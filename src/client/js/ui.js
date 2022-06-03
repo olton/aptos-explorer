@@ -284,7 +284,6 @@ export const updateTransaction = transaction => {
 }
 
 export const updateAccount = (data) => {
-    console.log(data)
     const {address, account, resources, modules, transactions, metadata, events} = data
     let validator = false
 
