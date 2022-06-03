@@ -82,7 +82,8 @@ export const getTransactions = async ({limit = 25, offset = 0}) => {
         from transactions t
             left join user_transactions ut on t.hash = ut.hash
             left join block_metadata_transactions m on t.hash = m.hash
-        where version > 0
+        where version > 0 
+        and type != 'state_checkpoint_transaction'
         order by t.version desc
         limit $1 offset $2    
     `

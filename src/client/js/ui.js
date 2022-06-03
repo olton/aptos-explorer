@@ -42,14 +42,16 @@ export const updateLatestTransactions = data => {
     const container = $("#latest-transactions").clear()
 
     for (let t of data.transactions) {
-        const {version, type, payload_type, payload_func, payload_args, hash, gas_used, success, vm_status, sender, sequence_number, gas_unit_price, timestamp} = t
-        const funcName = payload_func ? payload_func.split("::")[2] : ""
+        let {version, type, payload_type, payload_func, payload_args, hash, gas_used, success, vm_status, sender, sequence_number, gas_unit_price, timestamp} = t
+        let funcName = payload_func ? payload_func.split("::")[2] : ""
         const args = JSON.parse( payload_args )
         let amount = 0
 
         if (['mint', 'transfer'].includes(funcName)) {
             amount = +args[1]
         }
+
+        if (!sender) sender = ""
 
         $("<tr>").html(`
             <td><span class='${success ? 'mif-checkmark fg-green' : 'mif-blocked fg-red'}'></span></td>
