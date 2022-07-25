@@ -23,8 +23,9 @@ export const updateGasUsage = data => {
 
 export const updateOperationsCount = data => {
     const container = $("#operations-count").clear()
+    const {operations = []} = data
 
-    for(let r of data.operations) {
+    for(let r of operations) {
         $("<tr>").html(`
             <td>${r.func.substr(5)}</td>
             <td class="text-right">${r.operations_count}</td>
@@ -33,7 +34,8 @@ export const updateOperationsCount = data => {
 }
 
 export const updateTransactionsByType = data => {
-    for (let r of data.transactions) {
+    const {transactions = []} = data
+    for (let r of transactions) {
         $("#"+r.type).text(n2f(r.count))
     }
 }

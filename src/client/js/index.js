@@ -62,7 +62,7 @@ const wsMessageController = (ws, response) => {
             drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-all', data.all, '#5a74ec')
             drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-user', data.user, '#38800b')
             drawGaugeTransactionsPerMinute('#gauge-transactions-per-minute-meta', data.meta, '#d06714')
-            setTimeout(requestGaugeTransactionsPerMinute, 60000)
+            setTimeout(requestGaugeTransactionsPerMinute, data.all ? 60000 : 1000)
             break
         }
     }

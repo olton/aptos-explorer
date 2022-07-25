@@ -51,8 +51,8 @@ const route = () => {
     const clientConfig = JSON.stringify({
         "server": {
             "host": config.server.host,
-            "port": ssl ? config.server.ssl.port || config.server.port : config.server.port,
-            "secure": !!ssl
+            "port": config.client.secure ? 443 : 80,
+            "secure": !!config.client.secure
         },
         "theme": config.client.theme
     })

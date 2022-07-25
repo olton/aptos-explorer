@@ -52,7 +52,7 @@ const areaDefaultOptions = {
     },
 }
 
-export const drawGaugeTransactionsPerMinute = (target, data, color = '#458fff') => {
+export const drawGaugeTransactionsPerMinute = (target, data = [], color = '#458fff') => {
     const points = []
 
     let max = 0
