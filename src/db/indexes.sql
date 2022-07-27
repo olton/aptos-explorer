@@ -5,3 +5,4 @@ create index idx_transactions_success on transactions (success);
 create index idx_transactions_type on transactions (type);
 create index idx_block_metadata_transactions_timestamp on block_metadata_transactions (timestamp);
 create index idx_user_transactions_timestamp on user_transactions (timestamp desc);
+create index idx_block_metadata_transactions_epoch on block_metadata_transactions (epoch);
