@@ -1,3 +1,5 @@
+const lightLogo = `/images/aptos_word_light.svg`
+const darkLogo = `/images/aptos_word.svg`
 let darkMode = $.dark
 
 const storedDarkMode = Metro.storage.getItem("darkMode")
@@ -7,7 +9,7 @@ if (typeof storedDarkMode !== "undefined") {
 
 if (darkMode) {
     $("html").addClass("dark-mode")
-    $(".aptos-logo img").attr("src", "/images/aptos_word_light.svg")
+    $(".aptos-logo img").attr("src", lightLogo)
 }
 
 $(".light-mode-switch, .dark-mode-switch").on("click", () => {
@@ -15,9 +17,9 @@ $(".light-mode-switch, .dark-mode-switch").on("click", () => {
     Metro.storage.setItem("darkMode", darkMode)
     if (darkMode) {
         $("html").addClass("dark-mode")
-        $(".aptos-logo img").attr("src", "/images/aptos_word_light.svg")
+        $(".aptos-logo img").attr("src", lightLogo)
     } else {
         $("html").removeClass("dark-mode")
-        $(".aptos-logo img").attr("src", "/images/aptos_word.svg")
+        $(".aptos-logo img").attr("src", darkLogo)
     }
 })
