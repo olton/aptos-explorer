@@ -1,64 +1,62 @@
-CREATE OR REPLACE FUNCTION trans_type_count_reset_trigger()
+CREATE OR REPLACE FUNCTION counter_reset_trigger()
 RETURNS TRIGGER
 LANGUAGE plpgsql AS $$
 DECLARE
-	tablename text;
+	tableTypes text;
+	tableStatuses text;
 BEGIN
-	tablename := 'transaction_type_count';
+	tableTypes := 'transaction_type_count';
+	tableStatuses := 'transaction_status_count';
 
-	EXECUTE 'update ' || tablename || ' set counter = 0';
+	EXECUTE 'update ' || tableTypes || ' set counter = 0';
+	EXECUTE 'update ' || tableStatuses || ' set counter = 0';
 END
 $$;
 
-CREATE OR REPLACE FUNCTION trans_type_count_update_trigger()
+CREATE OR REPLACE FUNCTION counter_update_trigger()
 RETURNS TRIGGER
 LANGUAGE plpgsql AS $$
 DECLARE
-	tablename text;
+	tableTypes text;
+	tableStatuses text;
 BEGIN
-	tablename := 'transaction_type_count';
+	tableTypes := 'transaction_type_count';
+	tableStatuses := 'transaction_status_count';
 
 	IF TG_OP = 'INSERT' THEN
-	    EXECUTE 'update ' || tablename || ' set counter = counter + 1 where type = $1'
+	    EXECUTE 'update ' || tableTypes || ' set counter = counter + 1 where type = $1'
         USING NEW.type;
+
+        if (NEW.success = true) then
+            EXECUTE 'update ' || tableStatuses || ' set counter = counter + 1 where type = $1'
+            USING 'success';
+        elseif (NEW.success = false) then
+            EXECUTE 'update ' || tableStatuses || ' set counter = counter + 1 where type = $1'
+            USING 'failed';
+        else
+            EXECUTE 'update ' || tableStatuses || ' set counter = counter + 1 where type = $1'
+            USING 'unknown';
+        end if;
 
 		RETURN NEW;
 	END IF;
 END
 $$;
 
-create function trans_type_count_reset_trigger() returns trigger
+create function iif(condition boolean, true_result text, false_result text) returns text
     language plpgsql
 as
 $$
-DECLARE
-	tablename text;
 BEGIN
-	tablename := 'transaction_type_count';
-
-	EXECUTE 'update ' || tablename || ' set counter = 0';
+     IF condition THEN
+        RETURN true_result;
+ELSE
+        RETURN false_result;
+END IF;
 END
 $$;
 
-alter function trans_type_count_reset_trigger() owner to indexer;
-
-create function trans_type_count_update_trigger() returns trigger
-    language plpgsql
-as
-$$
-DECLARE
-	tablename text;
-BEGIN
-	tablename := 'transaction_type_count';
-
-	IF TG_OP = 'INSERT' THEN
-	    EXECUTE 'update ' || tablename || ' set counter = counter + 1 where type = $1'
-        USING NEW.type;
-
-		RETURN NEW;
-	END IF;
-END
-$$;
-
-alter function trans_type_count_update_trigger() owner to indexer;
+alter function iif(boolean, text, text) owner to indexer;
+alter function counter_reset_trigger() owner to indexer;
+alter function counter_update_trigger() owner to indexer;
 
