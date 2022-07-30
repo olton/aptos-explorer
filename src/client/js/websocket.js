@@ -3,7 +3,7 @@ globalThis.webSocket = null
 const isOpen = (ws) => ws && ws.readyState === ws.OPEN
 
 export const connect = () => {
-    const {host, port = 80, secure} = config.server
+    const {host = 'localhost', port = 80, secure = false} = config.server
     const ws = new WebSocket(`${secure ? 'wss' : 'ws'}://${host}:${port}`)
 
     globalThis.webSocket = ws
