@@ -81,7 +81,7 @@ export const drawGaugeTransactionsPerMinute = (target, data = [], color = '#458f
 
     chart.areaChart(target, [points], {
         ...areaDefaultOptions,
-        background: darkMode ? '#1e2228' : '#ffffff',
+        background: 'transparent',
         areas,
         colors: [Metro.colors.toRGBA(color, .5)],
         padding: {
@@ -102,15 +102,15 @@ export const drawGaugeTransactionsPerMinute = (target, data = [], color = '#458f
                     font: {
                         size: 10
                     },
-                    color: darkMode ? '#adbaa9' : '#000000'
+                    color: '#adbaa9'
                 },
                 line: {
-                    color: darkMode ? '#444c56' : '#d9d9d9'
+                    color: 'rgba(217,217,217,0.5)'
                 }
             },
             x: {
                 line: {
-                    color: darkMode ? '#444c56' : '#d9d9d9'
+                    color: 'rgba(217,217,217,0.5)'
                 },
                 label: {
                     count: 10
