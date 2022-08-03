@@ -105,7 +105,7 @@ CREATE TRIGGER counter_reset_trigger
 	AFTER TRUNCATE ON transactions
 	FOR EACH STATEMENT EXECUTE PROCEDURE counter_reset_trigger();
 
-create view minting(hash, mint, function, sender) as
+create view v_minting(hash, mint, function, sender) as
 WITH mints AS (SELECT t.hash,
                       ARRAY(SELECT btrim(jsonb_array_elements.value::text, '"'::text) AS btrim
                             FROM jsonb_array_elements(t.payload -> 'arguments'::text) jsonb_array_elements(value)) AS args,
