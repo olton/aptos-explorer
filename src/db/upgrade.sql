@@ -17,8 +17,8 @@ create table transaction_status_count
     counter bigint default 0 not null
 );
 
-alter table transaction_status_count owner to indexer;
-alter table transaction_type_count owner to indexer;
+-- alter table transaction_status_count owner to indexer;
+-- alter table transaction_type_count owner to indexer;
 
 -- Indexes
 CREATE INDEX idx_btree_transactions_function ON transactions USING BTREE ((payload->>'function'));
@@ -92,9 +92,9 @@ END IF;
 END
 $$;
 
-alter function iif(boolean, text, text) owner to indexer;
-alter function counter_reset_trigger() owner to indexer;
-alter function counter_update_trigger() owner to indexer;
+-- alter function iif(boolean, text, text) owner to indexer;
+-- alter function counter_reset_trigger() owner to indexer;
+-- alter function counter_update_trigger() owner to indexer;
 
 -- Triggers
 CREATE CONSTRAINT TRIGGER counter_update_trigger
@@ -121,8 +121,7 @@ SELECT mints.hash,
        mints.sender
 FROM mints;
 
-alter table minting
-    owner to indexer;
+-- alter table v_minting owner to indexer;
 
 create index idx_block_metadata_transactions_proposer
     on block_metadata_transactions (proposer);
@@ -160,6 +159,12 @@ FROM transactions t
          LEFT JOIN block_metadata_transactions bmt ON t.hash::text = bmt.hash::text
          LEFT JOIN user_transactions ut ON t.hash::text = ut.hash::text;
 
-alter table v_transactions
-    owner to indexer;
+-- alter table v_transactions owner to indexer;
 
+insert into transaction_status_count (id, type, counter) values(1, 'success', 0);
+insert into transaction_status_count (id, type, counter) values(2, 'failed', 0);
+
+insert into transaction_type_count (id, type, counter) values(1, 'genesis_transaction', 0);
+insert into transaction_type_count (id, type, counter) values(2, 'block_metadata_transaction', 0);
+insert into transaction_type_count (id, type, counter) values(3, 'state_checkpoint_transaction', 0);
+insert into transaction_type_count (id, type, counter) values(4, 'user_transaction', 0);
