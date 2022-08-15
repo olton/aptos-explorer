@@ -32,6 +32,9 @@ create unique index ui_transaction_type_count_id on transaction_type_count (id);
 create unique index ui_transaction_type_count_type on transaction_type_count (type);
 create unique index ui_transaction_status_count_id on transaction_status_count (id);
 create unique index ui_transaction_status_count_type on transaction_status_count (type);
+create index idx_transactions_payload on transactions using gin (payload);
+
+
 
 -- Routines
 CREATE OR REPLACE FUNCTION counter_reset_trigger()
@@ -105,20 +108,27 @@ CREATE TRIGGER counter_reset_trigger
 	AFTER TRUNCATE ON transactions
 	FOR EACH STATEMENT EXECUTE PROCEDURE counter_reset_trigger();
 
-create view v_minting(hash, mint, function, sender) as
+create view v_minting(hash, mint, sender, receiver, function) as
 WITH mints AS (SELECT t.hash,
-                      ARRAY(SELECT btrim(jsonb_array_elements.value::text, '"'::text) AS btrim
-                            FROM jsonb_array_elements(t.payload -> 'arguments'::text) jsonb_array_elements(value)) AS args,
-                      t.payload ->> 'function'::text                                                               AS function,
-        ut.sender
-        FROM transactions t
-        LEFT JOIN user_transactions ut ON t.hash::text = ut.hash::text
-        WHERE t.type::text = 'user_transaction'::text
-        AND (t.payload ->> 'function'::text) ~~ '%aptos_coin::mint%'::text)
+                      (ARRAY(SELECT btrim(jsonb_array_elements.value::text, '"'::text) AS btrim
+                             FROM jsonb_array_elements(t.payload -> 'arguments'::text) jsonb_array_elements(value)))[1] AS receiver,
+                      (ARRAY(SELECT btrim(jsonb_array_elements.value::text, '"'::text) AS btrim
+                             FROM jsonb_array_elements(t.payload -> 'arguments'::text) jsonb_array_elements(value)))[2] AS mint,
+                      t.payload ->> 'function'::text                                                                    AS function,
+                      ut.sender
+               FROM transactions t
+                        LEFT JOIN user_transactions ut ON t.hash::text = ut.hash::text
+               WHERE t.type::text = 'user_transaction'::text
+                 AND (ARRAY(SELECT btrim(jsonb_array_elements.value::text, '"'::text) AS btrim
+                            FROM jsonb_array_elements(t.payload -> 'arguments'::text) jsonb_array_elements(value)))[2]::bigint >
+                     0
+                 AND (t.payload ->> 'function'::text) ~~ '%::mint'::text
+                 AND ut.sender::text <> '0xa550c18'::text)
 SELECT mints.hash,
-       mints.args[2]::bigint AS mint,
-        mints.function,
-       mints.sender
+       mints.mint,
+       mints.sender,
+       mints.receiver,
+       mints.function
 FROM mints;
 
 -- alter table v_minting owner to indexer;

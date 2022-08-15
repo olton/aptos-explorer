@@ -7,3 +7,5 @@ create index idx_block_metadata_transactions_timestamp on block_metadata_transac
 create index idx_user_transactions_timestamp on user_transactions (timestamp desc);
 create index idx_block_metadata_transactions_epoch on block_metadata_transactions (epoch);
 create index idx_block_metadata_transactions_proposer on block_metadata_transactions (proposer);
+create index idx_transactions_payload on transactions using gin (payload);
+
